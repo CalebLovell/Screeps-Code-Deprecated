@@ -13,26 +13,35 @@ module.exports = {
     var HAVE_LOAD = creep.memory.HAVE_LOAD
     var droppedEnergy = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES);
     var container = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-      filter: (i) => i.structureType == STRUCTURE_CONTAINER &&
-        i.store[RESOURCE_ENERGY] > 1000
+      filter: (s) => s.structureType == STRUCTURE_CONTAINER &&
+        s.store[RESOURCE_ENERGY] > 100
     });
-    
+
     // var container = _.max(container, c => c.store[RESOURCE_ENERGY])
     // Game.flags.Flag1.room.find(FIND_STRUCTURES, {filter: s => s.structureType == STRUCTURE_CONTAINER});
     // [structure (container) #5b53f56c20be52245f758a38], [structure (container) #5b54356b8178af5038ba0e67]
 
     var storage = creep.room.storage
     var myEnergyHolders = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
-      filter: (i) => (i.structureType == STRUCTURE_SPAWN
-              || i.structureType == STRUCTURE_EXTENSION
-              || i.structureType == STRUCTURE_TOWER)
-      && i.energy < i.energyCapacity
+      filter: (i) => (i.structureType == STRUCTURE_SPAWN ||
+          i.structureType == STRUCTURE_EXTENSION ||
+          i.structureType == STRUCTURE_TOWER) &&
+        i.energy < i.energyCapacity
     });
     if (myEnergyHolders == undefined) {
       myEnergyHolders = storage
     }
     // Step 1: Creep is empty, not at dropped energy or container -> Move to it
-    if (!HAVE_LOAD && null != container && !creep.pos.isNearTo(container)) {
+    // let containers = creep.room.find(FIND_STRUCTURES, {
+    //   filter: s => s.structureType === STRUCTURE_CONTAINER &&
+    //    s.store[RESOURCE_ENERGY] > 100
+    // });
+    // if (!containers.length > 0) {
+    //   let container = _.max(containers, c => c.store[RESOURCE_ENERGY])
+    // } else {
+    //   let container = null;
+    // }
+    if (!HAVE_LOAD && container && !creep.pos.isNearTo(container)) {
       creep.moveTo(container, {
         visualizePathStyle: {
           stroke: '#ffffff'
