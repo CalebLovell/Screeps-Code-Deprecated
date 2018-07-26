@@ -116,10 +116,10 @@ module.exports.loop = function() {
   }
 
   var minimumNumberOfMiners = 2;
-  var minimumNumberOfCouriers = 2;
-  var minimumNumberOfWorkers = 2;
+  var minimumNumberOfCouriers = 3;
+  var minimumNumberOfWorkers = 4;
   var minimumNumberOfBuilders = 1;
-  var minimumNumberOfAttackers = 1;
+  var minimumNumberOfAttackers = 0;
   var minimumNumberOfHealers = 0;
 
   var minimumNumberOfNorthminer = 1;
@@ -208,7 +208,7 @@ north: ${numberOfNorthminer}-${numberOfNorthcur}-${numberOfNorthroam} north2: ${
   }
   else if (numberOfWorkers < minimumNumberOfWorkers) {
     var newName = 'Worka' + Memory.lifeCount['harvester'];
-    if (Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE], newName, {
+    if (Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE], newName, {
         role: 'worker',
         working: false,
         HAVE_LOAD: false
@@ -282,7 +282,8 @@ north: ${numberOfNorthminer}-${numberOfNorthcur}-${numberOfNorthroam} north2: ${
 
   else if (numberOfWestcur < minimumNumberOfWestcur) {
     var newName = 'Westcur' + Memory.lifeCount['harvester'];
-    if (Game.spawns.Spawn1.createCreep([CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE], newName, {
+    if (Game.spawns.Spawn1.createCreep([CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY,
+      MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE], newName, {
         role: 'westcur',
         working: false
       }) == OK); {
