@@ -117,7 +117,7 @@ module.exports.loop = function() {
 
   var minimumNumberOfMiners = 2;
   var minimumNumberOfCouriers = 3;
-  var minimumNumberOfWorkers = 4;
+  var minimumNumberOfWorkers = 1;
   var minimumNumberOfBuilders = 1;
   var minimumNumberOfAttackers = 0;
   var minimumNumberOfHealers = 0;
@@ -228,7 +228,7 @@ north: ${numberOfNorthminer}-${numberOfNorthcur}-${numberOfNorthroam} north2: ${
   }
   else if (numberOfAttackers < minimumNumberOfAttackers) {
     var newName = 'Attacka' + Memory.lifeCount['upgrader'];
-    if (Game.spawns.Spawn1.createCreep([TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, MOVE], newName, {
+    if (Game.spawns.Spawn1.createCreep([MOVE, MOVE, MOVE, MOVE, ATTACK, ATTACK, ATTACK, ATTACK], newName, {
         role: 'attacker',
       }) == OK); {
       Memory.lifeCount['upgrader']++;

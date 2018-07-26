@@ -1,9 +1,9 @@
-var container = _.max(container, c => c.store[RESOURCE_ENERGY])
-if (!HAVE_LOAD && null != container && !creep.pos.isNearTo(container)) {
-  creep.moveTo(container, {
-    visualizePathStyle: {
-      stroke: '#ffffff'
-    }
-  });
+var container500 = creep.room.find(FIND_STRUCTURES, {
+  filter: s => s.structureType === STRUCTURE_CONTAINER &&
+    s.store[RESOURCE_ENERGY] > 500
+});
+
+if (!HAVE_LOAD && null != container500 && creep.pos.inRangeTo(container500, 5)) {
+  creep.moveTo(container500);
   return OK;
 }
