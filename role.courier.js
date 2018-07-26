@@ -15,7 +15,7 @@ module.exports = {
           creep.moveTo(myEnergyHolders, {
             visualizePathStyle: {
               stroke: '#ffaa00'
-            }
+            } 
           });
         } else {
           var storage = creep.room.storage
