@@ -18,6 +18,7 @@ module.exports = {
           creep.moveTo(hostileCreeps[0]);
         }
       }
+
       // let enemyStructures = enemyRoom.find(FIND_STRUCTURES)
       //  {
       //   filter: {
@@ -28,8 +29,8 @@ module.exports = {
       //   if (creep.attack(enemyStructures[0]) == ERR_NOT_IN_RANGE) {
       //     creep.moveTo(enemyStructures[0]);
       //   }
-      // }
+      }
     }
-  }
+  // }
   // }
 // }

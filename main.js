@@ -117,7 +117,7 @@ module.exports.loop = function() {
 
   var minimumNumberOfMiners = 2;
   var minimumNumberOfCouriers = 3;
-  var minimumNumberOfWorkers = 1;
+  var minimumNumberOfWorkers = 4;
   var minimumNumberOfBuilders = 1;
   var minimumNumberOfAttackers = 0;
   var minimumNumberOfHealers = 0;
@@ -130,9 +130,9 @@ module.exports.loop = function() {
   var minimumNumberOfNorth2cur = 1;
   var minimumNumberOfNorth2roam = 1;
 
-  var minimumNumberOfNorthwestminer = 1;
-  var minimumNumberOfNorthwestcur = 1;
-  var minimumNumberOfNorthwestroam = 1;
+  var minimumNumberOfNorthwestminer = 0;
+  var minimumNumberOfNorthwestcur = 0;
+  var minimumNumberOfNorthwestroam = 0;
 
   var minimumNumberOfWestminer = 1;
   var minimumNumberOfWestcur = 1;
