@@ -1,14 +1,5 @@
 module.exports = {
   run: function(creep) {
-    if (creep.memory.working == true) {
-      if (creep.room.name != 'E54S49') {
-        var homeBase = new RoomPosition(37, 20, 'E54S49');
-        creep.moveTo(homeBase);
-      } else {}
-    if (creep.room.name != 'E54S48') {
-      var northRoom = new RoomPosition(29, 29, 'E54S48');
-      creep.moveTo(northRoom);
-    } else {}
     // State Switching & Say Action
     if (creep.memory.HAVE_LOAD == false && creep.carry.energy == creep.carryCapacity) {
       creep.memory.HAVE_LOAD = true;
@@ -21,6 +12,18 @@ module.exports = {
     // Variables
     var HAVE_LOAD = creep.memory.HAVE_LOAD;
     var storageFill = creep.room.storage
+    // if
+    if (HAVE_LOAD == false) {
+      if (creep.room.name != 'E54S49') {
+        var homeBase = new RoomPosition(37, 20, 'E54S49');
+        creep.moveTo(homeBase);
+      } else {}
+    if (creep.room.name != 'E54S48') {
+      var northRoom = new RoomPosition(29, 29, 'E54S48');
+      creep.moveTo(northRoom);
+    } else {}
+
+
     // Step 1: Creep is not at capacity, is at dropped energy or container -> Pick it up or withdraw it
     // Creep picks up dropped resource piles over 40
     var droppedResources = creep.pos.findInRange(FIND_DROPPED_RESOURCES, 1);

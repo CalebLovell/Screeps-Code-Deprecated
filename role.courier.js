@@ -56,7 +56,7 @@ module.exports = {
       return OK;
     }
     // Step 3: Creep is full, not at tower / energy holder / storage -> Move to it
-    // Creep move to tower if it's not full of energy
+    // Creep move to tower if not full of energy
     if (HAVE_LOAD && !creep.pos.isNearTo(towerFill)) {
       creep.moveTo(towerFill, {
         visualizePathStyle: {
@@ -70,7 +70,7 @@ module.exports = {
       creep.transfer(towerFill, RESOURCE_ENERGY);
       return OK;
     }
-    // Creep move to spawnOrExtension if it's not full of energy
+    // Creep move to spawnOrExtension if not full of energy
     if (HAVE_LOAD && !creep.pos.isNearTo(spawnOrExtensionsFill)) {
       creep.moveTo(spawnOrExtensionsFill, {
         visualizePathStyle: {
@@ -84,7 +84,7 @@ module.exports = {
       creep.transfer(spawnOrExtensionsFill, RESOURCE_ENERGY);
       return OK;
     }
-    // Creep move to storage if it's not full of energy
+    // Creep move to storage if not full of energy
     if (HAVE_LOAD && !creep.pos.isNearTo(storageFill)) {
       creep.moveTo(storageFill, {
         visualizePathStyle: {
