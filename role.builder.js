@@ -15,9 +15,7 @@ module.exports = {
     var HAVE_LOAD = creep.memory.HAVE_LOAD
     var storage = creep.room.storage
     var droppedResources = creep.pos.findInRange(FIND_DROPPED_RESOURCES, 1);
-    var constructionSite = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES, {
-      filter: (s) => s.structureType != STRUCTURE_TERMINAL
-    });
+    var constructionSite = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES);
     // Step 1: Creep does not HAVE_LOAD, is at dropped energy or container -> Pick it up or withdraw it
     if (!HAVE_LOAD && droppedResources.length > 0) {
       creep.pickup(droppedResources[0]);

@@ -13,7 +13,7 @@ module.exports = {
     var HAVE_LOAD = creep.memory.HAVE_LOAD
     var storage = creep.room.storage
     var droppedResources = creep.pos.findInRange(FIND_DROPPED_RESOURCES, 1);
-    var wallHP = 20000
+    var wallHP = 100000
     var repairRatio = 0.9
     var anyRepairSite = creep.pos.findClosestByPath(FIND_STRUCTURES, {
       filter: (s) => s.hits < s.hitsMax * repairRatio
@@ -24,9 +24,6 @@ module.exports = {
     var wallOrRampart = creep.pos.findClosestByPath(FIND_STRUCTURES, {
       filter: (s) => (s.structureType == STRUCTURE_WALL || s.structureType == STRUCTURE_RAMPART) && s.hits < wallHP
     });
-    // if (wallOrRampart == undefined) {
-    //   wallOrRampart = normalRepairSite
-    // };
     // Step 1: Creep does not HAVE_LOAD, is at dropped energy or container -> Pick it up or withdraw it
     if (!HAVE_LOAD && droppedResources.length > 0) {
       creep.pickup(droppedResources[0]);
@@ -36,34 +33,35 @@ module.exports = {
       creep.withdraw(storage, RESOURCE_ENERGY);
       return creep.withdraw(storage, RESOURCE_ENERGY);
     }
-    // Step 2: Creep does HAVE_LOAD, not at wallOrRampart -> Move to nearest one
-    if (HAVE_LOAD && wallOrRampart != undefined && !creep.pos.inRangeTo(wallOrRampart, 3)) {
-      creep.moveTo(wallOrRampart, {
-        visualizePathStyle: {
-          stroke: '#ffaa00'
-        }
-      });
-      return OK;
+    // Step 2: Creep does HAVE_LOAD, wallOrRampart exists; -> Repair it or move to nearest one
+    if (HAVE_LOAD && normalRepairSite != null) {
+      if (creep.pos.inRangeTo(normalRepairSite, 3)) {
+        creep.repair(normalRepairSite)
+        return OK;
+      } else {
+        creep.moveTo(normalRepairSite, {
+          visualizePathStyle: {
+            stroke: '#ffaa00'
+          }
+        });
+        return OK;
+      }
     }
-    // Step 3: Creep does HAVE_LOAD, is at wallOrRampart -> Repair it
-    if (HAVE_LOAD && wallOrRampart != null && creep.pos.inRangeTo(wallOrRampart, 3)) {
-      creep.repair(wallOrRampart)
-      return OK;
+    // Step 3: Creep does HAVE_LOAD, normalRepairSite exists; -> Repair it or move to nearest one
+    if (HAVE_LOAD && wallOrRampart != null) {
+      if (creep.pos.inRangeTo(wallOrRampart, 3)) {
+        creep.repair(wallOrRampart)
+        return OK;
+      } else {
+        creep.moveTo(wallOrRampart, {
+          visualizePathStyle: {
+            stroke: '#ffaa00'
+          }
+        });
+        return OK;
+      }
     }
-    // if (HAVE_LOAD && wallOrRampart != null && !creep.pos.inRangeTo(wallOrRampart, 3)) {
-    //   creep.moveTo(wallOrRampart, {
-    //     visualizePathStyle: {
-    //       stroke: '#ffaa00'
-    //     }
-    //   });
-    //   return OK;
-    // }
-    // Step 3: Creep does HAVE_LOAD, is at normalRepairSite -> Repair it
-    if (HAVE_LOAD && normalRepairSite != null && creep.pos.inRangeTo(normalRepairSite, 3)) {
-      creep.repair(normalRepairSite)
-      return OK;
-    }
-    // Step 4: Creep does not HAVE_LOAD, not at storage -> Move to it
+    // Step 3: Creep does not HAVE_LOAD, not at storage -> Move to it
     if (!HAVE_LOAD && !creep.pos.isNearTo(storage)) {
       creep.moveTo(storage, {
         visualizePathStyle: {

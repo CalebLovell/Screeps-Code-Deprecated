@@ -125,26 +125,26 @@ module.exports.loop = function() {
   var minimumNumberOfMiners = 2;
   var minimumNumberOfCouriers = 2;
   var minimumNumberOfWorkers = 0;
-  var minimumNumberOfBuilders = 2;
-  var minimumNumberOfRepairers = 0;
+  var minimumNumberOfBuilders = 1;
+  var minimumNumberOfRepairers = 2;
 
   var minimumNumberOfAttackers = 0;
   var minimumNumberOfHealers = 0;
 
-  var minimumNumberOfNorthminer = 0;
-  var minimumNumberOfNorthcur = 0;
+  var minimumNumberOfNorthminer = 1;
+  var minimumNumberOfNorthcur = 1;
   var minimumNumberOfNorthroam = 1;
 
-  var minimumNumberOfNorth2miner = 0;
-  var minimumNumberOfNorth2cur = 0;
+  var minimumNumberOfNorth2miner = 1;
+  var minimumNumberOfNorth2cur = 1;
   var minimumNumberOfNorth2roam = 1;
 
-  var minimumNumberOfNorthwestminer = 0;
-  var minimumNumberOfNorthwestcur = 0;
+  var minimumNumberOfNorthwestminer = 1;
+  var minimumNumberOfNorthwestcur = 1;
   var minimumNumberOfNorthwestroam = 1;
 
-  var minimumNumberOfWestminer = 0;
-  var minimumNumberOfWestcur = 0;
+  var minimumNumberOfWestminer = 1;
+  var minimumNumberOfWestcur = 1;
   var minimumNumberOfWestroam = 1;
 
   var minimumNumberOfHarvesters = 0;
@@ -243,7 +243,7 @@ north: ${numberOfNorthminer}-${numberOfNorthcur}-${numberOfNorthroam} north2: ${
   }
   else if (numberOfBuilders < minimumNumberOfBuilders) {
     var newName = 'Builda' + Memory.lifeCount['builder'];
-    if (Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, WORK, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE], newName, {
+    if (Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, WORK, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE], newName, {
         role: 'builder',
         working: false,
         HAVE_LOAD: false
@@ -253,7 +253,7 @@ north: ${numberOfNorthminer}-${numberOfNorthcur}-${numberOfNorthroam} north2: ${
   }
   else if (numberOfRepairers < minimumNumberOfRepairers) {
     var newName = 'Repaira' + Memory.lifeCount['builder'];
-    if (Game.spawns.Spawn1.createCreep([WORK, CARRY, MOVE, MOVE], newName, {
+    if (Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, WORK, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE], newName, {
         role: 'repairer',
         working: false,
         HAVE_LOAD: false
@@ -338,7 +338,8 @@ north: ${numberOfNorthminer}-${numberOfNorthcur}-${numberOfNorthroam} north2: ${
   }
   else if (numberOfNorth2cur < minimumNumberOfNorth2cur) {
     var newName = 'North2cur' + Memory.lifeCount['harvester'];
-    if (Game.spawns.Spawn1.createCreep([CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE], newName, {
+    if (Game.spawns.Spawn1.createCreep([CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE,
+       MOVE, ], newName, {
         role: 'north2cur',
         working: false,
         HAVE_LOAD: false
@@ -369,7 +370,7 @@ north: ${numberOfNorthminer}-${numberOfNorthcur}-${numberOfNorthroam} north2: ${
   }
   else if (numberOfNorthwestroam < minimumNumberOfNorthwestroam) {
     var newName = 'Northwestroam' + Memory.lifeCount['harvester'];
-    if (Game.spawns.Spawn1.createCreep([WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE], newName, {
+    if (Game.spawns.Spawn1.createCreep([WORK, CARRY, MOVE], newName, {
         role: 'northwestroam',
         working: false,
         HAVE_LOAD: false
@@ -379,7 +380,7 @@ north: ${numberOfNorthminer}-${numberOfNorthcur}-${numberOfNorthroam} north2: ${
   }
   else if (numberOfNorth2roam < minimumNumberOfNorth2roam) {
     var newName = 'North2roam' + Memory.lifeCount['harvester'];
-    if (Game.spawns.Spawn1.createCreep([WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE], newName, {
+    if (Game.spawns.Spawn1.createCreep([WORK, CARRY, MOVE], newName, {
         role: 'north2roam',
         working: false,
         HAVE_LOAD: false
