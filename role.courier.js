@@ -21,7 +21,7 @@ module.exports = {
     if (structuresFill == undefined) {
       structuresFill = storageFill
     };
-    // Step 1: Creep is not at capacity, is at dropped energy or container -> Pick it up or withdraw it
+    // Step 1: Creep does not HAVE_LOAD, is at dropped energy or container -> Pick it up or withdraw it
     // Creep picks up dropped resource piles
     var droppedResources = creep.pos.findInRange(FIND_DROPPED_RESOURCES, 1);
     if (!HAVE_LOAD && droppedResources.length > 0) {
@@ -41,7 +41,7 @@ module.exports = {
       creep.withdraw(containerFullest, RESOURCE_ENERGY);
       return OK;
     }
-    // Step 2: Creep is not at capacity, not at container -> Move to fullest one
+    // Step 2: Creep does not HAVE_LOAD, not at container -> Move to fullest one
     if (!HAVE_LOAD && null != containerFullest && !creep.pos.isNearTo(containerFullest)) {
       creep.moveTo(containerFullest, {
         visualizePathStyle: {
@@ -50,7 +50,7 @@ module.exports = {
       });
       return OK;
     }
-    // Step 3: Creep is full, not at structures / storage -> Move to it
+    // Step 3: Creep does HAVE_LOAD, not at structures / storage -> Move to structures first or to storage if structures were full
     // Creep move to structuresFill if not full of energy
     if (HAVE_LOAD && !creep.pos.isNearTo(structuresFill)) {
       creep.moveTo(structuresFill, {

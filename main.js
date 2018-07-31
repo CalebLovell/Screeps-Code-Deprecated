@@ -123,7 +123,7 @@ module.exports.loop = function() {
   var minimumNumberOfMiners = 2;
   var minimumNumberOfCouriers = 2;
   var minimumNumberOfWorkers = 1;
-  var minimumNumberOfBuilders = 0;
+  var minimumNumberOfBuilders = 1;
   var minimumNumberOfAttackers = 0;
   var minimumNumberOfHealers = 0;
 
