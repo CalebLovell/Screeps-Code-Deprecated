@@ -15,8 +15,8 @@ module.exports = {
     var droppedResources = creep.pos.findInRange(FIND_DROPPED_RESOURCES, 1);
     var wallHP = 100000
     var repairRatio = 0.9
-    var anyRepairSite = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-      filter: (s) => s.hits < s.hitsMax * repairRatio
+    var containerRepair = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+      filter: (s) => s.structureType == STRUCTURE_CONTAINER && s.hits < s.hitsMax * repairRatio
     });
     var normalRepairSite = creep.pos.findClosestByPath(FIND_STRUCTURES, {
       filter: (s) => s.hits < s.hitsMax * repairRatio && s.structureType != STRUCTURE_WALL && s.structureType != STRUCTURE_RAMPART
@@ -34,6 +34,19 @@ module.exports = {
       return creep.withdraw(storage, RESOURCE_ENERGY);
     }
     // Step 2: Creep does HAVE_LOAD, wallOrRampart exists; -> Repair it or move to nearest one
+    if (HAVE_LOAD && containerRepair != null) {
+      if (creep.pos.inRangeTo(containerRepair, 3)) {
+        creep.repair(containerRepair)
+        return OK;
+      } else {
+        creep.moveTo(containerRepair, {
+          containerRepair: {
+            stroke: '#ffaa00'
+          }
+        });
+        return OK;
+      }
+    }
     if (HAVE_LOAD && normalRepairSite != null) {
       if (creep.pos.inRangeTo(normalRepairSite, 3)) {
         creep.repair(normalRepairSite)

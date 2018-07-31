@@ -126,7 +126,7 @@ module.exports.loop = function() {
   var minimumNumberOfCouriers = 2;
   var minimumNumberOfWorkers = 0;
   var minimumNumberOfBuilders = 1;
-  var minimumNumberOfRepairers = 2;
+  var minimumNumberOfRepairers = 3;
 
   var minimumNumberOfAttackers = 0;
   var minimumNumberOfHealers = 0;
@@ -210,17 +210,6 @@ north: ${numberOfNorthminer}-${numberOfNorthcur}-${numberOfNorthroam} north2: ${
       Memory.lifeCount['harvester']++;
     }
   }
-
-  else if (numberOfUpgraders < minimumNumberOfUpgraders) {
-    var newName = 'Upgrada' + Memory.lifeCount['upgrader'];
-    if (Game.spawns.Spawn1.createCreep([WORK, CARRY, MOVE], newName, {
-        role: 'upgrader',
-        HAVE_LOAD: false
-      }) == OK); {
-      Memory.lifeCount['upgrader']++;
-    }
-  }
-
   else if (numberOfCouriers < minimumNumberOfCouriers) {
     var newName = 'Cur' + Memory.lifeCount['harvester'];
     if (Game.spawns.Spawn1.createCreep([CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE], newName, {
@@ -241,26 +230,7 @@ north: ${numberOfNorthminer}-${numberOfNorthcur}-${numberOfNorthroam} north2: ${
       Memory.lifeCount['harvester']++;
     }
   }
-  else if (numberOfBuilders < minimumNumberOfBuilders) {
-    var newName = 'Builda' + Memory.lifeCount['builder'];
-    if (Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, WORK, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE], newName, {
-        role: 'builder',
-        working: false,
-        HAVE_LOAD: false
-      }) == OK); {
-      Memory.lifeCount['builder']++;
-    }
-  }
-  else if (numberOfRepairers < minimumNumberOfRepairers) {
-    var newName = 'Repaira' + Memory.lifeCount['builder'];
-    if (Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, WORK, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE], newName, {
-        role: 'repairer',
-        working: false,
-        HAVE_LOAD: false
-      }) == OK); {
-      Memory.lifeCount['builder']++;
-    }
-  }
+
   else if (numberOfAttackers < minimumNumberOfAttackers) {
     var newName = 'Attacka' + Memory.lifeCount['upgrader'];
     if (Game.spawns.Spawn1.createCreep([MOVE, MOVE, MOVE, MOVE, ATTACK, ATTACK, ATTACK, ATTACK], newName, {
@@ -399,6 +369,27 @@ north: ${numberOfNorthminer}-${numberOfNorthcur}-${numberOfNorthroam} north2: ${
     }
   }
 
+  else if (numberOfBuilders < minimumNumberOfBuilders) {
+    var newName = 'Builda' + Memory.lifeCount['builder'];
+    if (Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, WORK, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE], newName, {
+        role: 'builder',
+        working: false,
+        HAVE_LOAD: false
+      }) == OK); {
+      Memory.lifeCount['builder']++;
+    }
+  }
+  else if (numberOfRepairers < minimumNumberOfRepairers) {
+    var newName = 'Repaira' + Memory.lifeCount['builder'];
+    if (Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, WORK, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE], newName, {
+        role: 'repairer',
+        working: false,
+        HAVE_LOAD: false
+      }) == OK); {
+      Memory.lifeCount['builder']++;
+    }
+  }
+
   else if (numberOfHarvesters < minimumNumberOfHarvesters) {
     var newName = 'Harv' + Memory.lifeCount['harvester'];
     if (Game.spawns.Spawn1.createCreep([WORK, CARRY, CARRY, MOVE, MOVE], newName, {
@@ -407,6 +398,15 @@ north: ${numberOfNorthminer}-${numberOfNorthcur}-${numberOfNorthroam} north2: ${
         HAVE_LOAD: false
       }) == OK); {
       Memory.lifeCount['harvester']++;
+    }
+  }
+  else if (numberOfUpgraders < minimumNumberOfUpgraders) {
+    var newName = 'Upgrada' + Memory.lifeCount['upgrader'];
+    if (Game.spawns.Spawn1.createCreep([WORK, CARRY, MOVE], newName, {
+        role: 'upgrader',
+        HAVE_LOAD: false
+      }) == OK); {
+      Memory.lifeCount['upgrader']++;
     }
   }
 
