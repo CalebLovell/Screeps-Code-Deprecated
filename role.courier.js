@@ -11,25 +11,20 @@ module.exports = {
     }
     // Variables
     var HAVE_LOAD = creep.memory.HAVE_LOAD;
-    var towerFill = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
-      filter: (t) => t.energy < t.energyCapacity && t.structureType == STRUCTURE_TOWER
-    });
-    var spawnOrExtensionsFill = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
+    var structuresFill = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
       filter: (s) => (s.structureType == STRUCTURE_EXTENSION ||
-          s.structureType == STRUCTURE_SPAWN) &&
+          s.structureType == STRUCTURE_SPAWN ||
+          s.structureType == STRUCTURE_TOWER) &&
           s.energy < s.energyCapacity
     });
     var storageFill = creep.room.storage
-    if (towerFill == undefined) {
-      towerFill = spawnOrExtensionsFill
-    };
-    if (spawnOrExtensionsFill == undefined) {
-      spawnOrExtensionsFill = storageFill
+    if (structuresFill == undefined) {
+      structuresFill = storageFill
     };
     // Step 1: Creep is not at capacity, is at dropped energy or container -> Pick it up or withdraw it
-    // Creep picks up dropped resource piles over 40
+    // Creep picks up dropped resource piles
     var droppedResources = creep.pos.findInRange(FIND_DROPPED_RESOURCES, 1);
-    if (!HAVE_LOAD && null != droppedResources && droppedResources.length > 0 && droppedResources > 40) {
+    if (!HAVE_LOAD && droppedResources.length > 0) {
       creep.pickup(droppedResources[0]);
       return OK;
     }
@@ -55,33 +50,19 @@ module.exports = {
       });
       return OK;
     }
-    // Step 3: Creep is full, not at tower / energy holder / storage -> Move to it
-    // Creep move to tower if not full of energy
-    if (HAVE_LOAD && !creep.pos.isNearTo(towerFill)) {
-      creep.moveTo(towerFill, {
+    // Step 3: Creep is full, not at structures / storage -> Move to it
+    // Creep move to structuresFill if not full of energy
+    if (HAVE_LOAD && !creep.pos.isNearTo(structuresFill)) {
+      creep.moveTo(structuresFill, {
         visualizePathStyle: {
           stroke: '#ffaa00'
         }
       });
       return OK;
     }
-    // Fill it
-    if (HAVE_LOAD && creep.pos.isNearTo(towerFill)) {
-      creep.transfer(towerFill, RESOURCE_ENERGY);
-      return OK;
-    }
-    // Creep move to spawnOrExtension if not full of energy
-    if (HAVE_LOAD && !creep.pos.isNearTo(spawnOrExtensionsFill)) {
-      creep.moveTo(spawnOrExtensionsFill, {
-        visualizePathStyle: {
-          stroke: '#ffaa00'
-        }
-      });
-      return OK;
-    }
-    // Fill it
-    if (HAVE_LOAD && creep.pos.isNearTo(spawnOrExtensionsFill)) {
-      creep.transfer(spawnOrExtensionsFill, RESOURCE_ENERGY);
+    // Fill structuresFill
+    if (HAVE_LOAD && creep.pos.isNearTo(structuresFill)) {
+      creep.transfer(structuresFill, RESOURCE_ENERGY);
       return OK;
     }
     // Creep move to storage if not full of energy
@@ -93,7 +74,7 @@ module.exports = {
       });
       return OK;
     }
-    // Fill it
+    // Fill storageFill
     if (HAVE_LOAD && creep.pos.isNearTo(storageFill)) {
       creep.transfer(storageFill, RESOURCE_ENERGY);
       return OK;
