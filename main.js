@@ -36,7 +36,7 @@ require('attackSomeOne')();
 
 module.exports.loop = function() {
 
-  spawnAttackers('E52S41',1,0);
+  spawnAttackers('E52S48',0,1);
 
   /* ------- TOWER ------- */
 
@@ -120,32 +120,35 @@ module.exports.loop = function() {
 
   }
 
+
+
   var minimumNumberOfMiners = 2;
   var minimumNumberOfCouriers = 2;
-  var minimumNumberOfWorkers = 1;
-  var minimumNumberOfBuilders = 1;
+  var minimumNumberOfWorkers = 0;
+  var minimumNumberOfBuilders = 2;
+  var minimumNumberOfRepairers = 0;
+
   var minimumNumberOfAttackers = 0;
   var minimumNumberOfHealers = 0;
 
   var minimumNumberOfNorthminer = 0;
   var minimumNumberOfNorthcur = 0;
-  var minimumNumberOfNorthroam = 0;
+  var minimumNumberOfNorthroam = 1;
 
   var minimumNumberOfNorth2miner = 0;
   var minimumNumberOfNorth2cur = 0;
-  var minimumNumberOfNorth2roam = 0;
+  var minimumNumberOfNorth2roam = 1;
 
   var minimumNumberOfNorthwestminer = 0;
   var minimumNumberOfNorthwestcur = 0;
-  var minimumNumberOfNorthwestroam = 0;
+  var minimumNumberOfNorthwestroam = 1;
 
   var minimumNumberOfWestminer = 0;
   var minimumNumberOfWestcur = 0;
-  var minimumNumberOfWestroam = 0;
+  var minimumNumberOfWestroam = 1;
 
   var minimumNumberOfHarvesters = 0;
   var minimumNumberOfUpgraders = 0;
-  var minimumNumberOfRepairers = 0;
 
   // _.sum counts the number of properties in Game.creeps filtered by the
   // arrow function, which checks for the creep being a whatever role it is
@@ -154,6 +157,8 @@ module.exports.loop = function() {
   var numberOfCouriers = _.sum(Game.creeps, (c) => c.memory.role == 'courier');
   var numberOfWorkers = _.sum(Game.creeps, (c) => c.memory.role == 'worker');
   var numberOfBuilders = _.sum(Game.creeps, (c) => c.memory.role == 'builder');
+  var numberOfRepairers = _.sum(Game.creeps, (c) => c.memory.role == 'repairer');
+
   var numberOfAttackers = _.sum(Game.creeps, (c) => c.memory.role == 'attacker');
   var numberOfHealers = _.sum(Game.creeps, (c) => c.memory.role == 'healer');
 
@@ -177,11 +182,26 @@ module.exports.loop = function() {
   var numberOfUpgraders = _.sum(Game.creeps, (c) => c.memory.role == 'upgrader');
   var numberOfRepairers = _.sum(Game.creeps, (c) => c.memory.role == 'repairer');
 
+  var survivalCreeps = _.sum(Game.creeps, (c) => c.memory.role == 'miner') + _.sum(Game.creeps, (c) => c.memory.role == 'courier') + _.sum(Game.creeps, (c) => c.memory.role == 'worker')
+   + _.sum(Game.creeps, (c) => c.memory.role == 'builder');
+
   // console.log(`harvesters: ${numberOfHarvesters} upgraders: ${numberOfUpgraders} builders: ${numberOfBuilders} repairers: ${numberOfRepairers} miners: ${numberOfMiners} couriers: ${numberOfCouriers} workers: ${numberOfWorkers}`)
-  console.log(`miners: ${numberOfMiners} couriers: ${numberOfCouriers} workers: ${numberOfWorkers} builders: ${numberOfBuilders} attackers: ${numberOfAttackers} healers: ${numberOfHealers}
+  console.log(`miners: ${numberOfMiners} couriers: ${numberOfCouriers} workers: ${numberOfWorkers} builders: ${numberOfBuilders} repairer: ${numberOfRepairers} attackers: ${numberOfAttackers} healers: ${numberOfHealers}
 north: ${numberOfNorthminer}-${numberOfNorthcur}-${numberOfNorthroam} north2: ${numberOfNorth2miner}-${numberOfNorth2cur}-${numberOfNorth2roam} west: ${numberOfWestminer}-${numberOfWestcur}-${numberOfWestroam} northwest: ${numberOfNorthwestminer}-${numberOfNorthwestcur}-${numberOfNorthwestroam}`)
 
-  if (numberOfMiners < minimumNumberOfMiners) {
+
+  if (survivalCreeps = 0 && numberOfHarvesters < 5) {
+    var newName = 'Harv' + Memory.lifeCount['harvester'];
+    if (Game.spawns.Spawn1.createCreep([WORK, CARRY, MOVE], newName, {
+        role: 'harvester',
+        working: false,
+        HAVE_LOAD: false
+      }) == OK); {
+      Memory.lifeCount['harvester']++;
+    }
+  }
+
+  else if (numberOfMiners < minimumNumberOfMiners) {
     var newName = 'Mina' + Memory.lifeCount['harvester'];
     if (Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, WORK, MOVE, MOVE, MOVE], newName, {
         role: 'miner',
@@ -225,6 +245,16 @@ north: ${numberOfNorthminer}-${numberOfNorthcur}-${numberOfNorthroam} north2: ${
     var newName = 'Builda' + Memory.lifeCount['builder'];
     if (Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, WORK, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE], newName, {
         role: 'builder',
+        working: false,
+        HAVE_LOAD: false
+      }) == OK); {
+      Memory.lifeCount['builder']++;
+    }
+  }
+  else if (numberOfRepairers < minimumNumberOfRepairers) {
+    var newName = 'Repaira' + Memory.lifeCount['builder'];
+    if (Game.spawns.Spawn1.createCreep([WORK, CARRY, MOVE, MOVE], newName, {
+        role: 'repairer',
         working: false,
         HAVE_LOAD: false
       }) == OK); {

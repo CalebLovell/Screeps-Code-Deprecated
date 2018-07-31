@@ -1,39 +1,76 @@
-var roleHarvester = require('role.harvester');
-
 module.exports = {
   run: function(creep) {
-    if (creep.memory.working == true && creep.carry.energy == 0) {
-      creep.memory.working = false;
-      creep.say('🔄 harvest');
-    } else if (creep.memory.working == false && creep.carry.energy == creep.carryCapacity) {
-      creep.memory.working = true;
-      creep.say('🛠️ repair');
+    // State Switching & Say Action
+    if (creep.memory.HAVE_LOAD == false && creep.carry.energy == creep.carryCapacity) {
+      creep.memory.HAVE_LOAD = true;
+      creep.say('\u{1F6E0}'); // hammer and wrench emojii unicode
     }
-    if (creep.memory.working == true) {
-      var decayingStructure = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-        filter: (ds) => ds.hits < ds.hitsMax && ds.structureType != STRUCTURE_WALL
-      });
-      if (decayingStructure != undefined) {
-        if (creep.repair(decayingStructure) == ERR_NOT_IN_RANGE) {
-          creep.moveTo(decayingStructure, {
-            visualizePathStyle: {
-              stroke: '#ffaa00'
-            }
-          });
-        } else {
-          roleHarvester.run(creep);
+    if (creep.memory.HAVE_LOAD == true && creep.carry.energy == 0) {
+      creep.memory.HAVE_LOAD = false;
+      creep.say('\u{267B}'); // recycle emojii unicode
+    }
+    // Variables
+    var HAVE_LOAD = creep.memory.HAVE_LOAD
+    var storage = creep.room.storage
+    var droppedResources = creep.pos.findInRange(FIND_DROPPED_RESOURCES, 1);
+    var wallHP = 20000
+    var repairRatio = 0.9
+    var anyRepairSite = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+      filter: (s) => s.hits < s.hitsMax * repairRatio
+    });
+    var normalRepairSite = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+      filter: (s) => s.hits < s.hitsMax * repairRatio && s.structureType != STRUCTURE_WALL && s.structureType != STRUCTURE_RAMPART
+    });
+    var wallOrRampart = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+      filter: (s) => (s.structureType == STRUCTURE_WALL || s.structureType == STRUCTURE_RAMPART) && s.hits < wallHP
+    });
+    // if (wallOrRampart == undefined) {
+    //   wallOrRampart = normalRepairSite
+    // };
+    // Step 1: Creep does not HAVE_LOAD, is at dropped energy or container -> Pick it up or withdraw it
+    if (!HAVE_LOAD && droppedResources.length > 0) {
+      creep.pickup(droppedResources[0]);
+      return OK;
+    }
+    if (!HAVE_LOAD && creep.pos.isNearTo(storage)) {
+      creep.withdraw(storage, RESOURCE_ENERGY);
+      return creep.withdraw(storage, RESOURCE_ENERGY);
+    }
+    // Step 2: Creep does HAVE_LOAD, not at wallOrRampart -> Move to nearest one
+    if (HAVE_LOAD && wallOrRampart != undefined && !creep.pos.inRangeTo(wallOrRampart, 3)) {
+      creep.moveTo(wallOrRampart, {
+        visualizePathStyle: {
+          stroke: '#ffaa00'
         }
-      }
-    } else {
-      var droppedEnergy = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES);
-      var container = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-        filter: (i) => i.structureType == STRUCTURE_CONTAINER
       });
-      if (creep.pickup(droppedEnergy) == ERR_NOT_IN_RANGE) {
-        creep.moveTo(droppedEnergy);
-      } else if (creep.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-        creep.moveTo(container);
-      }
+      return OK;
+    }
+    // Step 3: Creep does HAVE_LOAD, is at wallOrRampart -> Repair it
+    if (HAVE_LOAD && wallOrRampart != null && creep.pos.inRangeTo(wallOrRampart, 3)) {
+      creep.repair(wallOrRampart)
+      return OK;
+    }
+    // if (HAVE_LOAD && wallOrRampart != null && !creep.pos.inRangeTo(wallOrRampart, 3)) {
+    //   creep.moveTo(wallOrRampart, {
+    //     visualizePathStyle: {
+    //       stroke: '#ffaa00'
+    //     }
+    //   });
+    //   return OK;
+    // }
+    // Step 3: Creep does HAVE_LOAD, is at normalRepairSite -> Repair it
+    if (HAVE_LOAD && normalRepairSite != null && creep.pos.inRangeTo(normalRepairSite, 3)) {
+      creep.repair(normalRepairSite)
+      return OK;
+    }
+    // Step 4: Creep does not HAVE_LOAD, not at storage -> Move to it
+    if (!HAVE_LOAD && !creep.pos.isNearTo(storage)) {
+      creep.moveTo(storage, {
+        visualizePathStyle: {
+          stroke: '#ffffff'
+        }
+      });
+      return OK;
     }
   }
-};
+}

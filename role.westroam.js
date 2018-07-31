@@ -27,14 +27,13 @@ module.exports = {
           roleRepairer.run(creep);
         }
       } else {
-        var droppedEnergy = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES);
-        var container = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-          filter: (i) => i.structureType == STRUCTURE_CONTAINER
-        });
-        if (creep.pickup(droppedEnergy) == ERR_NOT_IN_RANGE) {
-          creep.moveTo(droppedEnergy);
-        } else if (creep.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-          creep.moveTo(container);
+        var source = creep.pos.findClosestByPath(FIND_SOURCES);
+        if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
+          creep.moveTo(source, {
+            visualizePathStyle: {
+              stroke: '#ffffff'
+            }
+          });
         }
       }
     }

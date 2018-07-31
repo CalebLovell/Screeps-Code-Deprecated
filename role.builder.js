@@ -15,7 +15,9 @@ module.exports = {
     var HAVE_LOAD = creep.memory.HAVE_LOAD
     var storage = creep.room.storage
     var droppedResources = creep.pos.findInRange(FIND_DROPPED_RESOURCES, 1);
-    var constructionSite = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES);
+    var constructionSite = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES, {
+      filter: (s) => s.structureType != STRUCTURE_TERMINAL
+    });
     // Step 1: Creep does not HAVE_LOAD, is at dropped energy or container -> Pick it up or withdraw it
     if (!HAVE_LOAD && droppedResources.length > 0) {
       creep.pickup(droppedResources[0]);
@@ -26,7 +28,7 @@ module.exports = {
       return creep.withdraw(storage, RESOURCE_ENERGY);
     }
     // Step 2: Creep does HAVE_LOAD, not at constructionSite -> Move to nearest one
-    if (HAVE_LOAD && !creep.pos.inRangeTo(constructionSite, 3)) {
+    if (HAVE_LOAD && constructionSite != null && !creep.pos.inRangeTo(constructionSite, 3)) {
       creep.moveTo(constructionSite, {
         visualizePathStyle: {
           stroke: '#ffaa00'
@@ -35,7 +37,7 @@ module.exports = {
       return OK;
     }
     // Step 3: Creep does HAVE_LOAD, is at constructionSite -> Build it
-    if (HAVE_LOAD && creep.pos.inRangeTo(constructionSite, 3)) {
+    if (HAVE_LOAD && constructionSite != null && creep.pos.inRangeTo(constructionSite, 3)) {
       creep.build(constructionSite)
       return OK;
     }
@@ -46,6 +48,11 @@ module.exports = {
           stroke: '#ffffff'
         }
       });
+      return OK;
+    }
+    // Step 5: Creep can't build -> Become Repairer
+    if (HAVE_LOAD && constructionSite == null) {
+      roleRepairer.run(creep);
       return OK;
     }
   }
