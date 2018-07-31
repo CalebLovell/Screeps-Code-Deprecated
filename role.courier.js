@@ -22,12 +22,6 @@ module.exports = {
       structuresFill = storageFill
     };
     // Step 1: Creep does not HAVE_LOAD, is at dropped energy or container -> Pick it up or withdraw it
-    // Creep picks up dropped resource piles
-    var droppedResources = creep.pos.findInRange(FIND_DROPPED_RESOURCES, 1);
-    if (!HAVE_LOAD && droppedResources.length > 0) {
-      creep.pickup(droppedResources[0]);
-      return OK;
-    }
     // Creep withdraws from biggest container in room over 100 energy
     var containers = creep.room.find(FIND_STRUCTURES, {
       filter: s => s.structureType === STRUCTURE_CONTAINER &&
@@ -39,6 +33,12 @@ module.exports = {
     };
     if (!HAVE_LOAD && null != containerFullest && creep.pos.isNearTo(containerFullest)) {
       creep.withdraw(containerFullest, RESOURCE_ENERGY);
+      return OK;
+    }
+    // Creep picks up dropped resource piles
+    var droppedResources = creep.pos.findInRange(FIND_DROPPED_RESOURCES, 1);
+    if (!HAVE_LOAD && droppedResources.length > 0) {
+      creep.pickup(droppedResources[0]);
       return OK;
     }
     // Step 2: Creep does not HAVE_LOAD, not at container -> Move to fullest one

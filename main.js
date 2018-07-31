@@ -36,7 +36,7 @@ require('attackSomeOne')();
 
 module.exports.loop = function() {
 
-  spawnAttackers('E52S48',0,1);
+  spawnAttackers('E57S46',0,0);
 
   /* ------- TOWER ------- */
 
@@ -120,13 +120,11 @@ module.exports.loop = function() {
 
   }
 
-
-
   var minimumNumberOfMiners = 2;
   var minimumNumberOfCouriers = 2;
-  var minimumNumberOfWorkers = 0;
+  var minimumNumberOfWorkers = 1;
   var minimumNumberOfBuilders = 1;
-  var minimumNumberOfRepairers = 3;
+  var minimumNumberOfRepairers = 1;
 
   var minimumNumberOfAttackers = 0;
   var minimumNumberOfHealers = 0;
@@ -182,8 +180,7 @@ module.exports.loop = function() {
   var numberOfUpgraders = _.sum(Game.creeps, (c) => c.memory.role == 'upgrader');
   var numberOfRepairers = _.sum(Game.creeps, (c) => c.memory.role == 'repairer');
 
-  var survivalCreeps = _.sum(Game.creeps, (c) => c.memory.role == 'miner') + _.sum(Game.creeps, (c) => c.memory.role == 'courier') + _.sum(Game.creeps, (c) => c.memory.role == 'worker')
-   + _.sum(Game.creeps, (c) => c.memory.role == 'builder');
+  var survivalCreeps = _.sum(Game.creeps, (c) => c.memory.role == 'miner') + _.sum(Game.creeps, (c) => c.memory.role == 'courier');
 
   // console.log(`harvesters: ${numberOfHarvesters} upgraders: ${numberOfUpgraders} builders: ${numberOfBuilders} repairers: ${numberOfRepairers} miners: ${numberOfMiners} couriers: ${numberOfCouriers} workers: ${numberOfWorkers}`)
   console.log(`miners: ${numberOfMiners} couriers: ${numberOfCouriers} workers: ${numberOfWorkers} builders: ${numberOfBuilders} repairer: ${numberOfRepairers} attackers: ${numberOfAttackers} healers: ${numberOfHealers}
@@ -360,7 +357,7 @@ north: ${numberOfNorthminer}-${numberOfNorthcur}-${numberOfNorthroam} north2: ${
   }
   else if (numberOfNorthroam < minimumNumberOfNorthroam) {
     var newName = 'Northroam' + Memory.lifeCount['harvester'];
-    if (Game.spawns.Spawn1.createCreep([WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE], newName, {
+    if (Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE], newName, {
         role: 'northroam',
         working: false,
         HAVE_LOAD: false
