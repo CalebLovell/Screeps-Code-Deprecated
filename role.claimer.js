@@ -9,9 +9,9 @@ module.exports = {
         if (creep.reserveController(roomController) == ERR_NOT_IN_RANGE) {
           creep.moveTo(roomController);
         }
-        if (creep.signController(roomController, "NO TOUCH | NÃO TOQUE | NO TOQUES | NON TOCCARE") == ERR_NOT_IN_RANGE) {
-          creep.moveTo(roomController)
-        }
+        // if (creep.signController(roomController, "\u{0ca0}_\u{0ca0} watching you CoreV. stay in ur corner or else \u{0ca0}_\u{0ca0}") == ERR_NOT_IN_RANGE) {
+        //   creep.moveTo(roomController)
+        // }
       }
     }
   }
