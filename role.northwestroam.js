@@ -6,38 +6,52 @@ module.exports = {
       var northwestRoom = new RoomPosition(45, 29, 'E53S48');
       creep.moveTo(northwestRoom);
     } else {
-      if (creep.memory.working == true && creep.carry.energy == 0) {
-        creep.memory.working = false;
-        creep.say('🔄 harvest');
-      } else if (creep.memory.working == false && creep.carry.energy == creep.carryCapacity) {
-        creep.memory.working = true;
-        creep.say('🔨 build');
+      // State Switching & Say Action
+      if (creep.memory.HAVE_LOAD == false && creep.carry.energy == creep.carryCapacity) {
+        creep.memory.HAVE_LOAD = true;
+        creep.say('\u{1F528}'); // hammer emojii unicode
       }
-      if (creep.memory.working == true) {
-        var constructionSite = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES);
-        if (constructionSite != undefined) {
-          if (creep.build(constructionSite) == ERR_NOT_IN_RANGE) {
-            creep.moveTo(constructionSite, {
-              visualizePathStyle: {
-                stroke: '#ffaa00'
-              }
-            });
+      if (creep.memory.HAVE_LOAD == true && creep.carry.energy == 0) {
+        creep.memory.HAVE_LOAD = false;
+        creep.say('\u{267B}'); // recycle emojii unicode
+      }
+      // Variables
+      var HAVE_LOAD = creep.memory.HAVE_LOAD
+      var source = creep.pos.findClosestByPath(FIND_SOURCES);
+      var constructionSite = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES);
+      // Step 1: Creep does not HAVE_LOAD, is at dropped energy or container -> Pick it up or withdraw it
+      if (!HAVE_LOAD && creep.pos.isNearTo(source)) {
+        creep.harvest(source);
+        return OK;
+      }
+      // Step 2: Creep does HAVE_LOAD, not at constructionSite -> Move to nearest one
+      if (HAVE_LOAD && constructionSite != null && !creep.pos.inRangeTo(constructionSite, 3)) {
+        creep.moveTo(constructionSite, {
+          visualizePathStyle: {
+            stroke: '#ffaa00'
           }
-        } else {
-          roleRepairer.run(creep);
-        }
-      } else {
-        var droppedEnergy = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES);
-        var container = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-          filter: (i) => i.structureType == STRUCTURE_CONTAINER
         });
-        if (creep.pickup(droppedEnergy) == ERR_NOT_IN_RANGE) {
-          creep.moveTo(droppedEnergy);
-        } else if (creep.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-          creep.moveTo(container);
-        }
+        return OK;
       }
-
+      // Step 3: Creep does HAVE_LOAD, is at constructionSite -> Build it
+      if (HAVE_LOAD && constructionSite != null && creep.pos.inRangeTo(constructionSite, 3)) {
+        creep.build(constructionSite)
+        return OK;
+      }
+      // Step 4: Creep does not HAVE_LOAD, not at storage -> Move to it
+      if (!HAVE_LOAD && !creep.pos.isNearTo(source)) {
+        creep.moveTo(source, {
+          visualizePathStyle: {
+            stroke: '#ffffff'
+          }
+        });
+        return OK;
+      }
+      // Step 5: Creep can't build -> Become Repairer
+      if (HAVE_LOAD && constructionSite == null) {
+        roleRepairer.run(creep);
+        return OK;
+      }
     }
   }
 };

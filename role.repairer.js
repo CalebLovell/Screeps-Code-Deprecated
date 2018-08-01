@@ -13,7 +13,7 @@ module.exports = {
     var HAVE_LOAD = creep.memory.HAVE_LOAD
     var storage = creep.room.storage
     var droppedResources = creep.pos.findInRange(FIND_DROPPED_RESOURCES, 1);
-    var wallHP = 100000
+    var wallHP = 200000
     var repairRatio = 0.9
     var containerRepair = creep.pos.findClosestByPath(FIND_STRUCTURES, {
       filter: (s) => s.structureType == STRUCTURE_CONTAINER && s.hits < s.hitsMax * repairRatio
