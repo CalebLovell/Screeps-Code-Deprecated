@@ -38,7 +38,7 @@ require('attackSomeOne')();
 
 module.exports.loop = function() {
 
-  spawnAttackers('E54S49',0,0);
+  spawnAttackers('E53S49',0,1);
 
   /* ------- TOWER ------- */
 
@@ -142,18 +142,18 @@ module.exports.loop = function() {
   var minimumNumberOfWestroam = 1;
 
   var minimumNumberOfNorthwestminer = 2;
-  var minimumNumberOfNorthwestcur = 0;
-  var minimumNumberOfNorthwestroam = 2;
+  var minimumNumberOfNorthwestcur = 2;
+  var minimumNumberOfNorthwestroam = 1;
 
   var minimumNumberOfNorthminer = 0;
   var minimumNumberOfNorthcur = 0;
-  var minimumNumberOfNorthroam = 0;
+  var minimumNumberOfNorthroam = 1;
 
   var minimumNumberOfNorth2miner = 0;
   var minimumNumberOfNorth2cur = 0;
   var minimumNumberOfNorth2roam = 0;
 
-  var minimumNumberOfHarvesters = 1;
+  var minimumNumberOfHarvesters = 2;
   var minimumNumberOfUpgraders = 0;
 
   // _.sum counts the number of properties in Game.creeps filtered by the
@@ -396,7 +396,7 @@ west: ${numberOfWestminer}-${numberOfWestcur}-${numberOfWestroam} northwest: ${n
   }
   else if (numberOfNorthroam < minimumNumberOfNorthroam) {
     var newName = 'Northroam' + Memory.lifeCount['harvester'];
-    if (Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE], newName, {
+    if (Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], newName, {
         role: 'northroam',
         working: false,
         HAVE_LOAD: false

@@ -60,7 +60,7 @@ module.exports = {
         return OK;
       }
     }
-    // Step 3: Creep does HAVE_LOAD, normalRepairSite exists; -> Repair it or move to nearest one
+    // Step 3: Creep does HAVE_LOAD, wallOrRampart exists; -> Repair it or move to nearest one
     if (HAVE_LOAD && wallOrRampart != null) {
       if (creep.pos.inRangeTo(wallOrRampart, 3)) {
         creep.repair(wallOrRampart)
