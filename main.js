@@ -127,14 +127,14 @@ module.exports.loop = function() {
   }
 
   var minimumNumberOfMiners = 2;
-  var minimumNumberOfCouriers = 1;
+  var minimumNumberOfCouriers = 2;
   var minimumNumberOfWorkers = 1;
   var minimumNumberOfBuilders = 1;
   var minimumNumberOfRepairers = 0;
 
   var minimumNumberOfAttackers = 0;
   var minimumNumberOfHealers = 0;
-  var minimumNumberOfClaimers = 0;
+  var minimumNumberOfClaimers = 1;
   var minimumNumberOfFlex = 1;
 
   var minimumNumberOfNorthminer = 1;
@@ -147,11 +147,11 @@ module.exports.loop = function() {
 
   var minimumNumberOfNorthwestminer = 1;
   var minimumNumberOfNorthwestcur = 0;
-  var minimumNumberOfNorthwestroam = 1;
+  var minimumNumberOfNorthwestroam = 2;
 
-  var minimumNumberOfWestminer = 1;
-  var minimumNumberOfWestcur = 0;
-  var minimumNumberOfWestroam = 3;
+  var minimumNumberOfWestminer = 2;
+  var minimumNumberOfWestcur = 1;
+  var minimumNumberOfWestroam = 2;
 
   var minimumNumberOfHarvesters = 0;
   var minimumNumberOfUpgraders = 0;
@@ -194,7 +194,7 @@ module.exports.loop = function() {
 
   // console.log(`harvesters: ${numberOfHarvesters} upgraders: ${numberOfUpgraders} builders: ${numberOfBuilders} repairers: ${numberOfRepairers} miners: ${numberOfMiners} couriers: ${numberOfCouriers} workers: ${numberOfWorkers}`)
   console.log(`miners: ${numberOfMiners} couriers: ${numberOfCouriers} workers: ${numberOfWorkers} builders: ${numberOfBuilders} repairer: ${numberOfRepairers} attackers: ${numberOfAttackers} healers: ${numberOfHealers}
-north: ${numberOfNorthminer}-${numberOfNorthcur}-${numberOfNorthroam} north2: ${numberOfNorth2miner}-${numberOfNorth2cur}-${numberOfNorth2roam} west: ${numberOfWestminer}-${numberOfWestcur}-${numberOfWestroam} northwest: ${numberOfNorthwestminer}-${numberOfNorthwestcur}-${numberOfNorthwestroam}`)
+north: ${numberOfNorthminer}-${numberOfNorthcur}-${numberOfNorthroam} north2: ${numberOfNorth2miner}-${numberOfNorth2cur}-${numberOfNorth2roam} west: ${numberOfWestminer}-${numberOfWestcur}-${numberOfWestroam} northwest: ${numberOfNorthwestminer}-${numberOfNorthwestcur}-${numberOfNorthwestroam} flex: ${numberOfFlex}`)
 
 
   if (survivalCreeps = 0 && numberOfHarvesters < 5) {
@@ -218,8 +218,8 @@ north: ${numberOfNorthminer}-${numberOfNorthcur}-${numberOfNorthroam} north2: ${
   }
   else if (numberOfFlex < minimumNumberOfFlex) {
     var newName = 'Flex' + Memory.lifeCount['builder'];
-    if (Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE,
-    MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], newName, {
+    if (Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE,
+    MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], newName, {
         role: 'flex',
         working: false,
         HAVE_LOAD: false
@@ -240,8 +240,8 @@ north: ${numberOfNorthminer}-${numberOfNorthcur}-${numberOfNorthroam} north2: ${
   }
   else if (numberOfCouriers < minimumNumberOfCouriers) {
     var newName = 'Cur' + Memory.lifeCount['harvester'];
-    if (Game.spawns.Spawn1.createCreep([CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY,
-      MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], newName, {
+    if (Game.spawns.Spawn1.createCreep([CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY,
+      MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], newName, {
         role: 'courier',
         working: false,
         HAVE_LOAD: false
