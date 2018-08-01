@@ -83,7 +83,6 @@ module.exports = {
             return OK;
           }
         }
-        return OK;
         if (HAVE_LOAD && normalRepairSite != null) {
           if (creep.pos.inRangeTo(normalRepairSite, 3)) {
             creep.repair(normalRepairSite)

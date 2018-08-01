@@ -138,7 +138,7 @@ module.exports.loop = function() {
   var minimumNumberOfFlex = 1;
 
   var minimumNumberOfWestminer = 2;
-  var minimumNumberOfWestcur = 4;
+  var minimumNumberOfWestcur = 3;
   var minimumNumberOfWestroam = 1;
 
   var minimumNumberOfNorthwestminer = 2;
@@ -154,7 +154,7 @@ module.exports.loop = function() {
   var minimumNumberOfNorth2roam = 0;
 
   var minimumNumberOfHarvesters = 1;
-  var minimumNumberOfUpgraders = 1;
+  var minimumNumberOfUpgraders = 0;
 
   // _.sum counts the number of properties in Game.creeps filtered by the
   // arrow function, which checks for the creep being a whatever role it is
