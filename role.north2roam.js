@@ -27,6 +27,7 @@ module.exports = {
       if (containers.length > 0) {
         containerFullest = _.max(containers, c => c.store[RESOURCE_ENERGY])
       };
+      // Creep withdraws
       if (!HAVE_LOAD && null != containerFullest && creep.pos.isNearTo(containerFullest)) {
         creep.withdraw(containerFullest, RESOURCE_ENERGY);
         return OK;
@@ -51,9 +52,9 @@ module.exports = {
         creep.build(constructionSite)
         return OK;
       }
-      // Step 4: Creep does not HAVE_LOAD, not at storage -> Move to it
-      if (!HAVE_LOAD && !creep.pos.isNearTo(storage)) {
-        creep.moveTo(storage, {
+      // Step 4: Creep does HAVE_LOAD, not at constructionSite -> Move to it
+      if (HAVE_LOAD && constructionSite != null && !creep.pos.isNearTo(constructionSite)) {
+        creep.moveTo(constructionSite, {
           visualizePathStyle: {
             stroke: '#ffffff'
           }
@@ -61,10 +62,42 @@ module.exports = {
         return OK;
       }
       // Step 5: Creep can't build -> Become Repairer
+      var repairRatio = 0.9
+      var containerRepair = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+        filter: (s) => s.structureType == STRUCTURE_CONTAINER && s.hits < s.hitsMax * repairRatio
+      });
+      var normalRepairSite = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+        filter: (s) => s.hits < s.hitsMax * repairRatio && s.structureType != STRUCTURE_WALL && s.structureType != STRUCTURE_RAMPART
+      });
       if (HAVE_LOAD && constructionSite == null) {
-        roleRepairer.run(creep);
+        if (HAVE_LOAD && containerRepair != null) {
+          if (creep.pos.inRangeTo(containerRepair, 3)) {
+            creep.repair(containerRepair)
+            return OK;
+          } else {
+            creep.moveTo(containerRepair, {
+              containerRepair: {
+                stroke: '#ffaa00'
+              }
+            });
+            return OK;
+          }
+        }
         return OK;
+        if (HAVE_LOAD && normalRepairSite != null) {
+          if (creep.pos.inRangeTo(normalRepairSite, 3)) {
+            creep.repair(normalRepairSite)
+            return OK;
+          } else {
+            creep.moveTo(normalRepairSite, {
+              visualizePathStyle: {
+                stroke: '#ffaa00'
+              }
+            });
+            return OK;
+          }
+        }
       }
     }
   }
-};
+}

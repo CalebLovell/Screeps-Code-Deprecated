@@ -31,7 +31,7 @@ module.exports = {
         var droppedEnergy = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES);
         var container = creep.pos.findClosestByPath(FIND_STRUCTURES, {
           filter: (i) => i.structureType == STRUCTURE_CONTAINER &&
-            i.store[RESOURCE_ENERGY] > 0
+            i.store[RESOURCE_ENERGY] > 100
         });
         if (creep.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
           creep.moveTo(container);

@@ -150,8 +150,8 @@ module.exports.loop = function() {
   var minimumNumberOfNorthwestroam = 2;
 
   var minimumNumberOfWestminer = 2;
-  var minimumNumberOfWestcur = 1;
-  var minimumNumberOfWestroam = 2;
+  var minimumNumberOfWestcur = 2;
+  var minimumNumberOfWestroam = 1;
 
   var minimumNumberOfHarvesters = 0;
   var minimumNumberOfUpgraders = 0;
