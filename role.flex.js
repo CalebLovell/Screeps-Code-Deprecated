@@ -57,18 +57,34 @@ module.exports = {
         filter: (s) => (s.structureType == STRUCTURE_WALL || s.structureType == STRUCTURE_RAMPART) && s.hits < wallHP
       });
       if (HAVE_LOAD && constructionSite == null) {
-        if (HAVE_LOAD && wallOrRampart != null) {
-          if (creep.pos.inRangeTo(wallOrRampart, 3)) {
-            creep.repair(wallOrRampart)
-            return OK;
-          } else {
-            creep.moveTo(wallOrRampart, {
-              visualizePathStyle: {
-                stroke: '#ffaa00'
-              }
-            });
-            return OK;
-          }
+        // if (HAVE_LOAD && wallOrRampart != null) {
+        //   if (creep.pos.inRangeTo(wallOrRampart, 3)) {
+        //     creep.repair(wallOrRampart)
+        //     return OK;
+        //   } else {
+        //     creep.moveTo(wallOrRampart, {
+        //       visualizePathStyle: {
+        //         stroke: '#ffaa00'
+        //       }
+        //     });
+        //     return OK;
+        //   }
+        // }
+        // Step 6: Creep can't build or repair -> upgrade
+        // Creep move to controller
+        var controller = creep.room.controller
+        if (HAVE_LOAD && null != controller && !creep.pos.inRangeTo(controller, 3)) {
+          creep.moveTo(controller, {
+            visualizePathStyle: {
+              stroke: '#ffaa00'
+            }
+          });
+          return OK;
+        }
+        // Upgrade controller
+        if (HAVE_LOAD && null != controller && creep.pos.inRangeTo(controller, 3)) {
+          creep.upgradeController(controller);
+          return OK;
         }
       }
     }
