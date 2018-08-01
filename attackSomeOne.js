@@ -10,7 +10,8 @@ module.exports = function() {
       var namem = 'attackerlol' + Memory.numattackers;
       console.log('NAME M ATTACKERS: ' + namem);
       //[TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH, MOVE, MOVE, MOVE, MOVE]
-      Game.spawns['Spawn1'].spawnCreep([MOVE, ATTACK, MOVE, ATTACK, MOVE, ATTACK, MOVE, ATTACK, MOVE, ATTACK], namem, {
+      Game.spawns['Spawn1'].spawnCreep([ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK,
+        ATTACK, ATTACK, ATTACK, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], namem, {
         memory: {
           role: 'attackerlol'
         }
@@ -43,11 +44,14 @@ module.exports = function() {
       } else if (spawn == 0) {
         creep.owner.username != 'LoveL'
         //var enemies= creep.room.find(Game.HOSTILE_CREEPS);
-        var enemies = creep.room.find(FIND_HOSTILE_CREEPS, {
+        var enemies = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS, {
           filter: (c) => c.owner.username != 'cluelesswalnut' || c.owner.username != 'LightLemmonDrop'
         });
-        creep.moveTo(enemies[0]);
-        creep.attack(enemies[0]);
+        if (enemies) {
+          if (creep.attack(enemies) == ERR_NOT_IN_RANGE) {
+            creep.moveTo(enemies);
+          }
+        }
       } else if (spawn == 2) {
         var structures = creep.room.find(FIND_HOSTILE_STRUCTURES, {filter: (s) => (s.structureType == STRUCTURE_EXTENSION)})[0];
         if (creep.attack(structures) == ERR_NOT_IN_RANGE) {
@@ -72,8 +76,23 @@ module.exports = function() {
         }
         //console.log(creep.attack(creep.room.find(FIND_HOSTILE_SPAWNS)[0]));
       }
+      else if (spawn == 7) {
+        //Game.spawns.Spawn1.createCreep([Game.ATTACK, Game.MOVE],'Attacker1');
+        //var attacker = Game.creeps.Attacker1;
+        var target = creep.pos.findClosestByRange(FIND_STRUCTURES);
+        if (target) {
+          if (creep.attack(target) == ERR_NOT_IN_RANGE) {
+            creep.moveTo(target);
+          }
+        }
+        // var spot = creep.room.find(FIND_STRUCTURES, {filter: (s) => (s.structureType == STRUCTURE_WALL)})[42];
+        // if (creep.attack(spot) == ERR_NOT_IN_RANGE) {
+        //   creep.moveTo(spot);
+        // }
+        //console.log(creep.attack(creep.room.find(FIND_HOSTILE_SPAWNS)[0]));
+      }
       else {
-        creep.moveTo(27, 27);
+        creep.moveTo(25, 8);
       }
     }
   }

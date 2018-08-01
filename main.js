@@ -7,6 +7,8 @@ var roleCourier = require('role.courier');
 var roleWorker = require('role.worker');
 var roleAttacker = require('role.attacker');
 var roleHealer = require('role.healer');
+var roleClaimer = require('role.claimer');
+var roleFlex = require('role.flex');
 
 var roleNorthminer = require('role.northminer');
 var roleNorthcur = require('role.northcur');
@@ -36,7 +38,7 @@ require('attackSomeOne')();
 
 module.exports.loop = function() {
 
-  spawnAttackers('E57S46',0,0);
+  spawnAttackers('E52S48',0,0);
 
   /* ------- TOWER ------- */
 
@@ -116,6 +118,10 @@ module.exports.loop = function() {
       roleAttacker.run(creep);
     } else if (creep.memory.role == 'healer') {
       roleHealer.run(creep);
+    } else if (creep.memory.role == 'claimer') {
+      roleClaimer.run(creep);
+    } else if (creep.memory.role == 'flex') {
+      roleFlex.run(creep);
     }
 
   }
@@ -124,10 +130,12 @@ module.exports.loop = function() {
   var minimumNumberOfCouriers = 2;
   var minimumNumberOfWorkers = 1;
   var minimumNumberOfBuilders = 1;
-  var minimumNumberOfRepairers = 1;
+  var minimumNumberOfRepairers = 0;
 
   var minimumNumberOfAttackers = 0;
   var minimumNumberOfHealers = 0;
+  var minimumNumberOfClaimers = 0;
+  var minimumNumberOfFlex = 1;
 
   var minimumNumberOfNorthminer = 1;
   var minimumNumberOfNorthcur = 1;
@@ -159,6 +167,8 @@ module.exports.loop = function() {
 
   var numberOfAttackers = _.sum(Game.creeps, (c) => c.memory.role == 'attacker');
   var numberOfHealers = _.sum(Game.creeps, (c) => c.memory.role == 'healer');
+  var numberOfClaimers = _.sum(Game.creeps, (c) => c.memory.role == 'claimer');
+  var numberOfFlex = _.sum(Game.creeps, (c) => c.memory.role == 'flex');
 
   var numberOfNorthminer = _.sum(Game.creeps, (c) => c.memory.role == 'northminer');
   var numberOfNorthcur = _.sum(Game.creeps, (c) => c.memory.role == 'northcur');
@@ -197,6 +207,25 @@ north: ${numberOfNorthminer}-${numberOfNorthcur}-${numberOfNorthroam} north2: ${
       Memory.lifeCount['harvester']++;
     }
   }
+  else if (numberOfClaimers < minimumNumberOfClaimers) {
+    var newName = 'Claima' + Memory.lifeCount['harvester'];
+    if (Game.spawns.Spawn1.createCreep([CLAIM, MOVE, MOVE], newName, {
+        role: 'claimer',
+      }) == OK); {
+      Memory.lifeCount['harvester']++;
+    }
+  }
+  else if (numberOfFlex < minimumNumberOfFlex) {
+    var newName = 'Flex' + Memory.lifeCount['builder'];
+    if (Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, WORK, WORK, WORK, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE,
+       CARRY, MOVE, WORK, WORK, MOVE, MOVE], newName, {
+        role: 'flex',
+        working: false,
+        HAVE_LOAD: false
+      }) == OK); {
+      Memory.lifeCount['builder']++;
+    }
+  }
 
   else if (numberOfMiners < minimumNumberOfMiners) {
     var newName = 'Mina' + Memory.lifeCount['harvester'];
@@ -230,7 +259,7 @@ north: ${numberOfNorthminer}-${numberOfNorthcur}-${numberOfNorthroam} north2: ${
 
   else if (numberOfAttackers < minimumNumberOfAttackers) {
     var newName = 'Attacka' + Memory.lifeCount['upgrader'];
-    if (Game.spawns.Spawn1.createCreep([MOVE, MOVE, MOVE, MOVE, ATTACK, ATTACK, ATTACK, ATTACK], newName, {
+    if (Game.spawns.Spawn1.createCreep([MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE,], newName, {
         role: 'attacker',
       }) == OK); {
       Memory.lifeCount['upgrader']++;
