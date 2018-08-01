@@ -24,6 +24,7 @@ module.exports = {
     if (creep.room.name != 'E53S49') {
       var westRoom = new RoomPosition(45, 35, 'E53S49');
       creep.moveTo(westRoom);
+      return OK;
     } else {
       // Step 1: Creep does not HAVE_LOAD, is at dropped energy or container -> Pick it up or withdraw it
       // Creep withdraws from biggest container in room over 100 energy
@@ -58,6 +59,7 @@ module.exports = {
     if (creep.room.name != 'E54S49') {
       var homeBase = new RoomPosition(37, 20, 'E54S49');
       creep.moveTo(homeBase);
+      return OK;
     } else {
       // Step 3: Creep does HAVE_LOAD, not at structures / storage -> Move to structures first or to storage if structures were full
       // Creep move to structuresFill if not full of energy

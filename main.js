@@ -154,7 +154,7 @@ module.exports.loop = function() {
   var minimumNumberOfWestroam = 1;
 
   var minimumNumberOfHarvesters = 1;
-  var minimumNumberOfUpgraders = 1;
+  var minimumNumberOfUpgraders = 0;
 
   // _.sum counts the number of properties in Game.creeps filtered by the
   // arrow function, which checks for the creep being a whatever role it is
@@ -194,8 +194,8 @@ module.exports.loop = function() {
 
   // console.log(`harvesters: ${numberOfHarvesters} upgraders: ${numberOfUpgraders} builders: ${numberOfBuilders} repairers: ${numberOfRepairers} miners: ${numberOfMiners} couriers: ${numberOfCouriers} workers: ${numberOfWorkers}`)
   console.log(`miners: ${numberOfMiners} couriers: ${numberOfCouriers} workers: ${numberOfWorkers} builders: ${numberOfBuilders} repairer: ${numberOfRepairers} attackers: ${numberOfAttackers} healers: ${numberOfHealers}
-north: ${numberOfNorthminer}-${numberOfNorthcur}-${numberOfNorthroam} north2: ${numberOfNorth2miner}-${numberOfNorth2cur}-${numberOfNorth2roam} west: ${numberOfWestminer}-${numberOfWestcur}-${numberOfWestroam} northwest: ${numberOfNorthwestminer}-${numberOfNorthwestcur}-${numberOfNorthwestroam} flex: ${numberOfFlex}`)
-
+north: ${numberOfNorthminer}-${numberOfNorthcur}-${numberOfNorthroam} west: ${numberOfWestminer}-${numberOfWestcur}-${numberOfWestroam} northwest: ${numberOfNorthwestminer}-${numberOfNorthwestcur}-${numberOfNorthwestroam} flex: ${numberOfFlex}`)
+//north2: ${numberOfNorth2miner}-${numberOfNorth2cur}-${numberOfNorth2roam}
 
   if (survivalCreeps = 0 && numberOfHarvesters < 5) {
     var newName = 'Harv' + Memory.lifeCount['harvester'];
@@ -291,7 +291,6 @@ north: ${numberOfNorthminer}-${numberOfNorthcur}-${numberOfNorthroam} north2: ${
       Memory.lifeCount['builder']++;
     }
   }
-
   else if (numberOfAttackers < minimumNumberOfAttackers) {
     var newName = 'Attacka' + Memory.lifeCount['upgrader'];
     if (Game.spawns.Spawn1.createCreep([MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE,], newName, {
@@ -311,16 +310,7 @@ north: ${numberOfNorthminer}-${numberOfNorthcur}-${numberOfNorthroam} north2: ${
     }
   }
 
-  else if (numberOfNorthminer < minimumNumberOfNorthminer) {
-    var newName = 'Northminer' + Memory.lifeCount['harvester'];
-    if (Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, WORK, MOVE, MOVE, MOVE], newName, {
-        role: 'northminer',
-        working: false,
-        HAVE_LOAD: false
-      }) == OK); {
-      Memory.lifeCount['harvester']++;
-    }
-  }
+
   else if (numberOfWestminer < minimumNumberOfWestminer) {
     var newName = 'Westminer' + Memory.lifeCount['harvester'];
     if (Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, WORK, MOVE, MOVE, MOVE], newName, {
@@ -331,27 +321,16 @@ north: ${numberOfNorthminer}-${numberOfNorthcur}-${numberOfNorthroam} north2: ${
       Memory.lifeCount['harvester']++;
     }
   }
-  else if (numberOfNorth2miner < minimumNumberOfNorth2miner) {
-    var newName = 'NorthTwominer' + Memory.lifeCount['harvester'];
-    if (Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, WORK, MOVE, MOVE, MOVE], newName, {
-        role: 'north2miner',
+  else if (numberOfWestroam < minimumNumberOfWestroam) {
+    var newName = 'Westroam' + Memory.lifeCount['harvester'];
+    if (Game.spawns.Spawn1.createCreep([WORK, CARRY, MOVE, MOVE, WORK, CARRY, MOVE, MOVE, WORK, CARRY, MOVE, MOVE, WORK, CARRY, MOVE, MOVE, WORK, CARRY, MOVE, MOVE], newName, {
+        role: 'westroam',
         working: false,
         HAVE_LOAD: false
       }) == OK); {
       Memory.lifeCount['harvester']++;
     }
   }
-  else if (numberOfNorthwestminer < minimumNumberOfNorthwestminer) {
-    var newName = 'Northwestminer' + Memory.lifeCount['harvester'];
-    if (Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, WORK, MOVE, MOVE, MOVE], newName, {
-        role: 'northwestminer',
-        working: false,
-        HAVE_LOAD: false
-      }) == OK); {
-      Memory.lifeCount['harvester']++;
-    }
-  }
-
   else if (numberOfWestcur < minimumNumberOfWestcur) {
     var newName = 'Westcur' + Memory.lifeCount['harvester'];
     if (Game.spawns.Spawn1.createCreep([CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY,
@@ -363,21 +342,30 @@ north: ${numberOfNorthminer}-${numberOfNorthcur}-${numberOfNorthroam} north2: ${
       Memory.lifeCount['harvester']++;
     }
   }
-  else if (numberOfNorthwestcur < minimumNumberOfNorthwestcur) {
-    var newName = 'Northwestcur' + Memory.lifeCount['harvester'];
-    if (Game.spawns.Spawn1.createCreep([CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE], newName, {
-        role: 'northwestcur',
+  else if (numberOfClaimers < minimumNumberOfClaimers) {
+    var newName = 'Claima' + Memory.lifeCount['harvester'];
+    if (Game.spawns.Spawn1.createCreep([CLAIM, CLAIM, MOVE, MOVE], newName, {
+        role: 'claimer',
+        HAVE_LOAD: false
+      }) == OK); {
+      Memory.lifeCount['harvester']++;
+    }
+  }
+
+  else if (numberOfNorthminer < minimumNumberOfNorthminer) {
+    var newName = 'Northminer' + Memory.lifeCount['harvester'];
+    if (Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, WORK, MOVE, MOVE, MOVE], newName, {
+        role: 'northminer',
         working: false,
         HAVE_LOAD: false
       }) == OK); {
       Memory.lifeCount['harvester']++;
     }
   }
-  else if (numberOfNorth2cur < minimumNumberOfNorth2cur) {
-    var newName = 'North2cur' + Memory.lifeCount['harvester'];
-    if (Game.spawns.Spawn1.createCreep([CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE,
-       MOVE, ], newName, {
-        role: 'north2cur',
+  else if (numberOfNorthroam < minimumNumberOfNorthroam) {
+    var newName = 'Northroam' + Memory.lifeCount['harvester'];
+    if (Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE], newName, {
+        role: 'northroam',
         working: false,
         HAVE_LOAD: false
       }) == OK); {
@@ -395,10 +383,10 @@ north: ${numberOfNorthminer}-${numberOfNorthcur}-${numberOfNorthroam} north2: ${
     }
   }
 
-  else if (numberOfWestroam < minimumNumberOfWestroam) {
-    var newName = 'Westroam' + Memory.lifeCount['harvester'];
-    if (Game.spawns.Spawn1.createCreep([WORK, CARRY, MOVE, MOVE, WORK, CARRY, MOVE, MOVE, WORK, CARRY, MOVE, MOVE, WORK, CARRY, MOVE, MOVE, WORK, CARRY, MOVE, MOVE], newName, {
-        role: 'westroam',
+  else if (numberOfNorthwestminer < minimumNumberOfNorthwestminer) {
+    var newName = 'Northwestminer' + Memory.lifeCount['harvester'];
+    if (Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, WORK, MOVE, MOVE, MOVE], newName, {
+        role: 'northwestminer',
         working: false,
         HAVE_LOAD: false
       }) == OK); {
@@ -415,6 +403,27 @@ north: ${numberOfNorthminer}-${numberOfNorthcur}-${numberOfNorthroam} north2: ${
       Memory.lifeCount['harvester']++;
     }
   }
+  else if (numberOfNorthwestcur < minimumNumberOfNorthwestcur) {
+    var newName = 'Northwestcur' + Memory.lifeCount['harvester'];
+    if (Game.spawns.Spawn1.createCreep([CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE], newName, {
+        role: 'northwestcur',
+        working: false,
+        HAVE_LOAD: false
+      }) == OK); {
+      Memory.lifeCount['harvester']++;
+    }
+  }
+
+  else if (numberOfNorth2miner < minimumNumberOfNorth2miner) {
+    var newName = 'NorthTwominer' + Memory.lifeCount['harvester'];
+    if (Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, WORK, MOVE, MOVE, MOVE], newName, {
+        role: 'north2miner',
+        working: false,
+        HAVE_LOAD: false
+      }) == OK); {
+      Memory.lifeCount['harvester']++;
+    }
+  }
   else if (numberOfNorth2roam < minimumNumberOfNorth2roam) {
     var newName = 'North2roam' + Memory.lifeCount['harvester'];
     if (Game.spawns.Spawn1.createCreep([WORK, CARRY, MOVE], newName, {
@@ -425,10 +434,11 @@ north: ${numberOfNorthminer}-${numberOfNorthcur}-${numberOfNorthroam} north2: ${
       Memory.lifeCount['harvester']++;
     }
   }
-  else if (numberOfNorthroam < minimumNumberOfNorthroam) {
-    var newName = 'Northroam' + Memory.lifeCount['harvester'];
-    if (Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE], newName, {
-        role: 'northroam',
+  else if (numberOfNorth2cur < minimumNumberOfNorth2cur) {
+    var newName = 'North2cur' + Memory.lifeCount['harvester'];
+    if (Game.spawns.Spawn1.createCreep([CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE,
+       MOVE, ], newName, {
+        role: 'north2cur',
         working: false,
         HAVE_LOAD: false
       }) == OK); {
@@ -436,15 +446,6 @@ north: ${numberOfNorthminer}-${numberOfNorthcur}-${numberOfNorthroam} north2: ${
     }
   }
 
-  else if (numberOfClaimers < minimumNumberOfClaimers) {
-    var newName = 'Claima' + Memory.lifeCount['harvester'];
-    if (Game.spawns.Spawn1.createCreep([CLAIM, CLAIM, MOVE, MOVE], newName, {
-        role: 'claimer',
-        HAVE_LOAD: false
-      }) == OK); {
-      Memory.lifeCount['harvester']++;
-    }
-  }
 
 
 
