@@ -18,6 +18,7 @@ module.exports = {
           s.structureType == STRUCTURE_TOWER) &&
           s.energy < s.energyCapacity
     });
+    var controller = creep.room.controller
     // Step 1: Creep does not HAVE_LOAD, is at source -> Harvest it
     if (!HAVE_LOAD && null != source && creep.pos.isNearTo(source)) {
       creep.harvest(source);
@@ -34,7 +35,7 @@ module.exports = {
     }
     // Step 3: Creep does HAVE_LOAD, not at structuresFill -> Move to structuresFill
     // Creep move to structuresFill if not full of energy
-    if (HAVE_LOAD && !creep.pos.isNearTo(structuresFill)) {
+    if (HAVE_LOAD && null != structuresFill && !creep.pos.isNearTo(structuresFill)) {
       creep.moveTo(structuresFill, {
         visualizePathStyle: {
           stroke: '#ffaa00'
@@ -43,8 +44,23 @@ module.exports = {
       return OK;
     }
     // Fill structuresFill
-    if (HAVE_LOAD && creep.pos.isNearTo(structuresFill)) {
+    if (HAVE_LOAD && null != structuresFill && creep.pos.isNearTo(structuresFill)) {
       creep.transfer(structuresFill, RESOURCE_ENERGY);
+      return OK;
+    }
+    // Step 4: Creep does HAVE_LOAD, but structures are filled -> Move to controller
+    // Creep move to structuresFill if not full of energy
+    if (HAVE_LOAD && null == structuresFill && !creep.pos.inRangeTo(controller, 3)) {
+      creep.moveTo(controller, {
+        visualizePathStyle: {
+          stroke: '#ffaa00'
+        }
+      });
+      return OK;
+    }
+    // Upgrade controller
+    if (HAVE_LOAD && null == structuresFill && creep.pos.inRangeTo(controller, 3)) {
+      creep.transfer(controller);
       return OK;
     }
   }
