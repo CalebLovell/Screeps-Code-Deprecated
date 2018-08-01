@@ -60,7 +60,7 @@ module.exports = {
     }
     // Upgrade controller
     if (HAVE_LOAD && null == structuresFill && creep.pos.inRangeTo(controller, 3)) {
-      creep.transfer(controller);
+      creep.upgradeController(controller);
       return OK;
     }
   }
