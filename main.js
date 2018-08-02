@@ -138,7 +138,7 @@ module.exports.loop = function() {
   var minimumNumberOfFlex = 1;
 
   var minimumNumberOfWestminer = 2;
-  var minimumNumberOfWestcur = 3;
+  var minimumNumberOfWestcur = 4;
   var minimumNumberOfWestroam = 1;
 
   var minimumNumberOfNorthwestminer = 2;
@@ -147,7 +147,7 @@ module.exports.loop = function() {
 
   var minimumNumberOfNorthminer = 0;
   var minimumNumberOfNorthcur = 0;
-  var minimumNumberOfNorthroam = 1;
+  var minimumNumberOfNorthroam = 0;
 
   var minimumNumberOfNorth2miner = 0;
   var minimumNumberOfNorth2cur = 0;

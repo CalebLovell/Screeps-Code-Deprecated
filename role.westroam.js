@@ -83,19 +83,19 @@ module.exports = {
             return OK;
           }
         }
-        if (HAVE_LOAD && normalRepairSite != null) {
-          if (creep.pos.inRangeTo(normalRepairSite, 3)) {
-            creep.repair(normalRepairSite)
-            return OK;
-          } else {
-            creep.moveTo(normalRepairSite, {
-              visualizePathStyle: {
-                stroke: '#ffaa00'
-              }
-            });
-            return OK;
-          }
-        }
+        // if (HAVE_LOAD && normalRepairSite != null) {
+        //   if (creep.pos.inRangeTo(normalRepairSite, 3)) {
+        //     creep.repair(normalRepairSite)
+        //     return OK;
+        //   } else {
+        //     creep.moveTo(normalRepairSite, {
+        //       visualizePathStyle: {
+        //         stroke: '#ffaa00'
+        //       }
+        //     });
+        //     return OK;
+        //   }
+        // }
       }
     }
   }
