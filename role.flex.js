@@ -49,7 +49,7 @@ module.exports = {
       }
       // Step 5: Creep can't build -> Become Repairer
       var repairRatio = 0.9
-      var wallHP = 50000
+      var wallHP = 100000
       var normalRepairSite = creep.pos.findClosestByPath(FIND_STRUCTURES, {
         filter: (s) => s.hits < s.hitsMax * repairRatio && s.structureType != STRUCTURE_WALL && s.structureType != STRUCTURE_RAMPART
       });
@@ -57,19 +57,19 @@ module.exports = {
         filter: (s) => (s.structureType == STRUCTURE_WALL || s.structureType == STRUCTURE_RAMPART) && s.hits < wallHP
       });
       if (HAVE_LOAD && constructionSite == null) {
-        // if (HAVE_LOAD && wallOrRampart != null) {
-        //   if (creep.pos.inRangeTo(wallOrRampart, 3)) {
-        //     creep.repair(wallOrRampart)
-        //     return OK;
-        //   } else {
-        //     creep.moveTo(wallOrRampart, {
-        //       visualizePathStyle: {
-        //         stroke: '#ffaa00'
-        //       }
-        //     });
-        //     return OK;
-        //   }
-        // }
+        if (HAVE_LOAD && normalRepairSite != null) {
+          if (creep.pos.inRangeTo(normalRepairSite, 3)) {
+            creep.repair(normalRepairSite)
+            return OK;
+          } else {
+            creep.moveTo(normalRepairSite, {
+              visualizePathStyle: {
+                stroke: '#ffaa00'
+              }
+            });
+            return OK;
+          }
+        }
         // Step 6: Creep can't build or repair -> upgrade
         // Creep move to controller
         var controller = creep.room.controller

@@ -1,7 +1,7 @@
 module.exports = {
   run: function(creep) {
-    if (creep.room.name != 'E54S47') {
-      var north2Room = new RoomPosition(17, 43, 'E54S47');
+    if (creep.room.name != 'E55S45') {
+      var north2Room = new RoomPosition(23, 48, 'E55S45');
       creep.moveTo(north2Room);
     } else {
       let sources = creep.room.find(FIND_SOURCES);
@@ -9,7 +9,7 @@ module.exports = {
       var containerBySource;
       for (var s in sources) {
         var nearByMiners = sources[s].pos.findInRange(FIND_MY_CREEPS, 1, {
-          filter: (c) => c.memory.role == 'miner' && c != creep
+          filter: (c) => c.memory.role == 'north2miner' && c != creep
         });
         //console.log("soureces: " + sources[s]);
         containerBySource = sources[s].pos.findInRange(FIND_STRUCTURES, 1, {

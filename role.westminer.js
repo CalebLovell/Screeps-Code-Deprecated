@@ -1,7 +1,7 @@
 module.exports = {
   run: function(creep) {
     if (creep.room.name != 'E53S49') {
-      var westRoom = new RoomPosition(29, 19, 'E53S49');
+      var westRoom = new RoomPosition(36, 49, 'E53S49');
       creep.moveTo(westRoom);
     } else {
       let sources = creep.room.find(FIND_SOURCES);

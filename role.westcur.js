@@ -22,7 +22,7 @@ module.exports = {
       structuresFill = storageFill
     };
     if (!HAVE_LOAD && creep.room.name != 'E53S49') {
-      var westRoom = new RoomPosition(45, 35, 'E53S49');
+      var westRoom = new RoomPosition(36, 49, 'E53S49');
       creep.moveTo(westRoom);
       return OK;
     } else {
