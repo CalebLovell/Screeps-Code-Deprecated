@@ -5,16 +5,16 @@ module.exports = {
     //   //let newEnemyRoom = new RoomPosition(10, 1, 'E52S50');
     //   creep.moveTo(changeRooms);
     // } else {
-      let enemyRoom = Game.rooms['E54S49']
-      let hostileSpawns = enemyRoom.find(FIND_HOSTILE_SPAWNS);
-      if (hostileSpawns) {
-        if (creep.attack(hostileSpawns[0]) == ERR_NOT_IN_RANGE) {
-          creep.moveTo(hostileSpawns[0]);
-        }
-      }
+      let enemyRoom = Game.rooms['E55S45']
+      // let hostileSpawns = enemyRoom.find(FIND_HOSTILE_SPAWNS);
+      // if (hostileSpawns) {
+      //   if (creep.attack(hostileSpawns[0]) == ERR_NOT_IN_RANGE) {
+      //     creep.moveTo(hostileSpawns[0]);
+      //   }
+      // }
       var hostileCreeps = enemyRoom.find(FIND_HOSTILE_CREEPS);
       if (hostileCreeps) {
-        if (creep.attack(hostileCreeps[0]) == ERR_NOT_IN_RANGE) {
+        if (creep.rangedAttack(hostileCreeps[0]) == ERR_NOT_IN_RANGE) {
           creep.moveTo(hostileCreeps[0]);
         }
       }

@@ -48,7 +48,7 @@ module.exports = {
         return OK;
       }
       // Step 5: Creep can't build -> Become Repairer
-      var repairRatio = 0.9
+      var repairRatio = 1
       var normalRepairSite = creep.pos.findClosestByPath(FIND_STRUCTURES, {
         filter: (s) => s.hits < s.hitsMax * repairRatio && s.structureType != STRUCTURE_WALL && s.structureType != STRUCTURE_RAMPART
       });

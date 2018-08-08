@@ -48,13 +48,13 @@ module.exports = {
         return OK;
       }
       // Step 5: Creep can't build -> Become Repairer
-      var repairRatio = 0.9
-      var wallHP = 100000
+      var repairRatio = .95
+      var wallHP = 200000
       var normalRepairSite = creep.pos.findClosestByPath(FIND_STRUCTURES, {
         filter: (s) => s.hits < s.hitsMax * repairRatio && s.structureType != STRUCTURE_WALL && s.structureType != STRUCTURE_RAMPART
       });
       var wallOrRampart = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-        filter: (s) => (s.structureType == STRUCTURE_WALL || s.structureType == STRUCTURE_RAMPART) && s.hits < wallHP
+        filter: (s) => (s.structureType == STRUCTURE_WALL) && s.hits < wallHP
       });
       if (HAVE_LOAD && constructionSite == null) {
         if (HAVE_LOAD && normalRepairSite != null) {
@@ -70,21 +70,18 @@ module.exports = {
             return OK;
           }
         }
-        // Step 6: Creep can't build or repair -> upgrade
-        // Creep move to controller
-        var controller = creep.room.controller
-        if (HAVE_LOAD && null != controller && !creep.pos.inRangeTo(controller, 3)) {
-          creep.moveTo(controller, {
-            visualizePathStyle: {
-              stroke: '#ffaa00'
-            }
-          });
-          return OK;
-        }
-        // Upgrade controller
-        if (HAVE_LOAD && null != controller && creep.pos.inRangeTo(controller, 3)) {
-          creep.upgradeController(controller);
-          return OK;
+        if (HAVE_LOAD && wallOrRampart != null) {
+          if (creep.pos.inRangeTo(wallOrRampart, 3)) {
+            creep.repair(wallOrRampart)
+            return OK;
+          } else {
+            creep.moveTo(wallOrRampart, {
+              visualizePathStyle: {
+                stroke: '#ffaa00'
+              }
+            });
+            return OK;
+          }
         }
       }
     }
