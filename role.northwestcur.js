@@ -16,6 +16,7 @@ module.exports = {
       filter: (s) => (s.structureType == STRUCTURE_ROAD) &&
         s.hits <= s.hitsMax * repairRatio
     });
+    var unbuiltRoad = creep.pos.findInRange(FIND_CONSTRUCTION_SITES, 0);
     var structuresFill = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
       filter: (s) => (s.structureType == STRUCTURE_EXTENSION ||
           s.structureType == STRUCTURE_SPAWN ||
@@ -64,6 +65,7 @@ module.exports = {
     if (HAVE_LOAD && creep.room.name != 'E54S49') {
       var homeBase = new RoomPosition(37, 20, 'E54S49');
       creep.moveTo(homeBase);
+      creep.build(unbuiltRoad);
       if (brokenRoad.length > 0) {
         creep.repair(brokenRoad[0])
       }

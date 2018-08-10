@@ -11,6 +11,7 @@ module.exports = {
     }
     // Variables
     var HAVE_LOAD = creep.memory.HAVE_LOAD;
+    var constructionSite = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES);
     var source = creep.pos.findClosestByPath(FIND_SOURCES);
     var structuresFill = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
       filter: (s) => (s.structureType == STRUCTURE_EXTENSION ||
@@ -50,8 +51,8 @@ module.exports = {
     }
     // Step 4: Creep does HAVE_LOAD, but structures are filled -> Move to controller
     // Creep move to structuresFill if not full of energy
-    if (HAVE_LOAD && null == structuresFill && !creep.pos.inRangeTo(controller, 3)) {
-      creep.moveTo(controller, {
+    if (HAVE_LOAD && null != constructionSite && !creep.pos.inRangeTo(constructionSite, 3)) {
+      creep.moveTo(constructionSite, {
         visualizePathStyle: {
           stroke: '#ffaa00'
         }
@@ -59,8 +60,8 @@ module.exports = {
       return OK;
     }
     // Upgrade controller
-    if (HAVE_LOAD && null == structuresFill && creep.pos.inRangeTo(controller, 3)) {
-      creep.upgradeController(controller);
+    if (HAVE_LOAD && null != constructionSite && creep.pos.inRangeTo(constructionSite, 3)) {
+      creep.repair(constructionSite);
       return OK;
     }
   }
