@@ -11,6 +11,11 @@ module.exports = {
     }
     // Variables
     var HAVE_LOAD = creep.memory.HAVE_LOAD;
+    var brokenRoad = creep.pos.findInRange(FIND_STRUCTURES, 0, {
+      filter: (s) => (s.structureType == STRUCTURE_ROAD) &&
+        s.hits <= s.hitsMax
+    });
+    var constructionSite = creep.pos.findInRange(FIND_CONSTRUCTION_SITES, 0);
     var structuresFill = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
       filter: (s) => (s.structureType == STRUCTURE_EXTENSION ||
           s.structureType == STRUCTURE_SPAWN ||
@@ -21,8 +26,8 @@ module.exports = {
     if (structuresFill == undefined) {
       structuresFill = storageFill
     };
-    if (!HAVE_LOAD && creep.room.name != 'E54S48') {
-      var westRoom = new RoomPosition(45, 35, 'E54S48');
+    if (!HAVE_LOAD && creep.room.name != 'E55S48') {
+      var westRoom = new RoomPosition(25, 25, 'E55S48');
       creep.moveTo(westRoom);
       return OK;
     } else {
@@ -56,14 +61,26 @@ module.exports = {
         return OK;
       }
     }
-    if (HAVE_LOAD && creep.room.name != 'E54S49') {
-      var homeBase = new RoomPosition(37, 20, 'E54S49');
+    if (HAVE_LOAD && creep.room.name != 'E55S47') {
+      var homeBase = new RoomPosition(37, 20, 'E55S47');
       creep.moveTo(homeBase);
+      if (constructionSite.length > 0) {
+        creep.build(constructionSite[0])
+      }
+      if (brokenRoad.length > 0) {
+        creep.repair(brokenRoad[0])
+      }
       return OK;
     } else {
       // Step 3: Creep does HAVE_LOAD, not at structures / storage -> Move to structures first or to storage if structures were full
       // Creep move to structuresFill if not full of energy
       if (HAVE_LOAD && !creep.pos.isNearTo(structuresFill)) {
+        if (constructionSite.length > 0) {
+          creep.build(constructionSite[0])
+        }
+        if (brokenRoad.length > 0) {
+          creep.repair(brokenRoad[0])
+        }
         creep.moveTo(structuresFill, {
           visualizePathStyle: {
             stroke: '#ffaa00'
@@ -78,6 +95,12 @@ module.exports = {
       }
       // Creep move to storage if not full of energy
       if (HAVE_LOAD && !creep.pos.isNearTo(storageFill)) {
+        if (constructionSite.length > 0) {
+          creep.build(constructionSite[0])
+        }
+        if (brokenRoad.length > 0) {
+          creep.repair(brokenRoad[0])
+        }
         creep.moveTo(storageFill, {
           visualizePathStyle: {
             stroke: '#ffaa00'

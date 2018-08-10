@@ -34,69 +34,69 @@ module.exports = {
         });
         return OK;
       }
-      // Step 3: Creep does HAVE_LOAD, is at constructionSite -> Build it
-      if (HAVE_LOAD && controller != null && creep.pos.inRangeTo(controller, 3)) {
-        creep.upgradeController(controller)
-        return OK;
-      }
-      // Step 4: Creep does HAVE_LOAD, not at constructionSite -> Move to it
-      if (HAVE_LOAD && controller != null && !creep.pos.inRangeTo(controller, 3)) {
-        creep.moveTo(controller, {
-          visualizePathStyle: {
-            stroke: '#ffffff'
-          }
-        });
-        return OK;
-      }
-      // if (HAVE_LOAD && constructionSite != null && creep.pos.inRangeTo(constructionSite, 3)) {
-      //   creep.build(constructionSite)
+      // // Step 3: Creep does HAVE_LOAD, is at constructionSite -> Build it
+      // if (HAVE_LOAD && controller != null && creep.pos.inRangeTo(controller, 3)) {
+      //   creep.upgradeController(controller)
       //   return OK;
       // }
       // // Step 4: Creep does HAVE_LOAD, not at constructionSite -> Move to it
-      // if (HAVE_LOAD && constructionSite != null && !creep.pos.inRangeTo(constructionSite, 3)) {
-      //   creep.moveTo(constructionSite, {
+      // if (HAVE_LOAD && controller != null && !creep.pos.inRangeTo(controller, 3)) {
+      //   creep.moveTo(controller, {
       //     visualizePathStyle: {
       //       stroke: '#ffffff'
       //     }
       //   });
       //   return OK;
       // }
+      if (HAVE_LOAD && constructionSite != null && creep.pos.inRangeTo(constructionSite, 3)) {
+        creep.build(constructionSite)
+        return OK;
+      }
+      // Step 4: Creep does HAVE_LOAD, not at constructionSite -> Move to it
+      if (HAVE_LOAD && constructionSite != null && !creep.pos.inRangeTo(constructionSite, 3)) {
+        creep.moveTo(constructionSite, {
+          visualizePathStyle: {
+            stroke: '#ffffff'
+          }
+        });
+        return OK;
+      }
       // Step 5: Creep can't build -> Become Repairer
-      // var repairRatio = 0.9
-      // var containerRepair = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-      //   filter: (s) => s.structureType == STRUCTURE_CONTAINER && s.hits < s.hitsMax * repairRatio
-      // });
-      // var normalRepairSite = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-      //   filter: (s) => s.hits < s.hitsMax * repairRatio && s.structureType != STRUCTURE_WALL && s.structureType != STRUCTURE_RAMPART
-      // });
-      // if (HAVE_LOAD && constructionSite == null) {
-      //   if (HAVE_LOAD && containerRepair != null) {
-      //     if (creep.pos.inRangeTo(containerRepair, 3)) {
-      //       creep.repair(containerRepair)
-      //       return OK;
-      //     } else {
-      //       creep.moveTo(containerRepair, {
-      //         containerRepair: {
-      //           stroke: '#ffaa00'
-      //         }
-      //       });
-      //       return OK;
-      //     }
-      //   }
-      //   if (HAVE_LOAD && normalRepairSite != null) {
-      //     if (creep.pos.inRangeTo(normalRepairSite, 3)) {
-      //       creep.repair(normalRepairSite)
-      //       return OK;
-      //     } else {
-      //       creep.moveTo(normalRepairSite, {
-      //         visualizePathStyle: {
-      //           stroke: '#ffaa00'
-      //         }
-      //       });
-      //       return OK;
-      //     }
-      //   }
-      // }
+      var repairRatio = 0.9
+      var containerRepair = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+        filter: (s) => s.structureType == STRUCTURE_CONTAINER && s.hits < s.hitsMax * repairRatio
+      });
+      var normalRepairSite = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+        filter: (s) => s.hits < s.hitsMax * repairRatio && s.structureType != STRUCTURE_WALL && s.structureType != STRUCTURE_RAMPART
+      });
+      if (HAVE_LOAD && constructionSite == null) {
+        if (HAVE_LOAD && containerRepair != null) {
+          if (creep.pos.inRangeTo(containerRepair, 3)) {
+            creep.repair(containerRepair)
+            return OK;
+          } else {
+            creep.moveTo(containerRepair, {
+              containerRepair: {
+                stroke: '#ffaa00'
+              }
+            });
+            return OK;
+          }
+        }
+        if (HAVE_LOAD && normalRepairSite != null) {
+          if (creep.pos.inRangeTo(normalRepairSite, 3)) {
+            creep.repair(normalRepairSite)
+            return OK;
+          } else {
+            creep.moveTo(normalRepairSite, {
+              visualizePathStyle: {
+                stroke: '#ffaa00'
+              }
+            });
+            return OK;
+          }
+        }
+      }
     }
   }
 }
