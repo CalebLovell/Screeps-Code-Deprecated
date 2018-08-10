@@ -11,6 +11,11 @@ module.exports = {
     }
     // Variables
     var HAVE_LOAD = creep.memory.HAVE_LOAD;
+    var repairRatio = 1
+    var brokenRoad = creep.pos.findInRange(FIND_STRUCTURES, 0, {
+      filter: (s) => (s.structureType == STRUCTURE_ROAD) &&
+        s.hits <= s.hitsMax * repairRatio
+    });
     var structuresFill = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
       filter: (s) => (s.structureType == STRUCTURE_EXTENSION ||
           s.structureType == STRUCTURE_SPAWN ||
@@ -59,6 +64,9 @@ module.exports = {
     if (HAVE_LOAD && creep.room.name != 'E54S49') {
       var homeBase = new RoomPosition(37, 20, 'E54S49');
       creep.moveTo(homeBase);
+      if (brokenRoad.length > 0) {
+        creep.repair(brokenRoad[0])
+      }
       return OK;
     } else {
       // Step 3: Creep does HAVE_LOAD, not at structures / storage -> Move to structures first or to storage if structures were full
@@ -69,6 +77,9 @@ module.exports = {
             stroke: '#ffaa00'
           }
         });
+        if (brokenRoad.length > 0) {
+          creep.repair(brokenRoad[0])
+        }
         return OK;
       }
       // Fill structuresFill
@@ -83,6 +94,9 @@ module.exports = {
             stroke: '#ffaa00'
           }
         });
+        if (brokenRoad.length > 0) {
+          creep.repair(brokenRoad[0])
+        }
         return OK;
       }
       // Fill storageFill

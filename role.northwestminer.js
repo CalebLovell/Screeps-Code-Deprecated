@@ -1,9 +1,23 @@
 module.exports = {
   run: function(creep) {
+    var HAVE_LOAD = creep.memory.HAVE_LOAD;
+    // state switching
+    if (creep.memory.HAVE_LOAD == false && creep.carry.energy == creep.carryCapacity) {
+      creep.memory.HAVE_LOAD = true;
+      creep.say('\u{1F6E0}'); // hammer and wrench emojii unicode
+    }
+    if (creep.memory.HAVE_LOAD == true && creep.carry.energy == 0) {
+      creep.memory.HAVE_LOAD = false;
+      creep.say('\u{26CF}'); // pick emojii unicode
+    }
     if (creep.room.name != 'E53S48') {
       var northwestRoom = new RoomPosition(45, 29, 'E53S48');
       creep.moveTo(northwestRoom);
     } else {
+      var brokenContainer = creep.pos.findInRange(FIND_STRUCTURES, 0, {
+        filter: (s) => (s.structureType == STRUCTURE_CONTAINER) &&
+          s.hits < s.hitsMax
+      });
       let sources = creep.room.find(FIND_SOURCES);
       var chosenSource;
       var containerBySource;
@@ -40,9 +54,13 @@ module.exports = {
       }
       //console.log("cont:" + container);
       if (onContainer) {
-        //console.log("on container");
-        var sourceToHarvest = creep.pos.findInRange(FIND_SOURCES, 1);
-        creep.harvest(sourceToHarvest[0]);
+        if (brokenContainer.length > 0 && HAVE_LOAD) {
+          creep.repair(brokenContainer[0])
+        } else {
+          //console.log("on container");
+          var sourceToHarvest = creep.pos.findInRange(FIND_SOURCES, 1);
+          creep.harvest(sourceToHarvest[0]);
+        }
       } else {
         //console.log("not on container")
         creep.moveTo(containerBySource[0], {

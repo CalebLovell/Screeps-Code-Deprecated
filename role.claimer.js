@@ -6,10 +6,10 @@ module.exports = {
     } else {
       var roomController = creep.room.controller
       if (roomController) {
-        if (creep.reserveController(roomController) == ERR_NOT_IN_RANGE) {
+        if (creep.claimController(roomController) == ERR_NOT_IN_RANGE) {
           creep.moveTo(roomController);
         }
-        // if (creep.signController(roomController, "\u{0ca0}_\u{0ca0} watching you CoreV. stay in ur corner or else \u{0ca0}_\u{0ca0}") == ERR_NOT_IN_RANGE) {
+        // if (creep.signController(roomController, "I have President Putin; he just said it's not Russia. I will say this: I don't see any reason why it would(n't) be.") == ERR_NOT_IN_RANGE) {
         //   creep.moveTo(roomController)
         // }
       }

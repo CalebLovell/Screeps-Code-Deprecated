@@ -38,7 +38,7 @@ require('attackSomeOne')();
 
 module.exports.loop = function() {
 
-  spawnAttackers('E55S45',0,0);
+  spawnAttackers('E53S49',0,1);
 
   /* ------- TOWER MAIN ------- */
 
@@ -159,19 +159,19 @@ module.exports.loop = function() {
 
   var minimumNumberOfWestminer = 2;
   var minimumNumberOfWestcur = 3;
-  var minimumNumberOfWestroam = 1;
+  var minimumNumberOfWestroam = 2;
   var minimumNumberOfClaimers = 1;
 
   var minimumNumberOfNorthwestminer = 2;
   var minimumNumberOfNorthwestcur = 2;
-  var minimumNumberOfNorthwestroam = 2;
+  var minimumNumberOfNorthwestroam = 3;
 
   var minimumNumberOfNorthroam = 1;
 
   var minimumNumberOfHarvesters = 2;
   var minimumNumberOfUpgraders = 0;
-  var minimumNumberOfNorth2miner = 3;
-  var minimumNumberOfNorth2cur = 5;
+  var minimumNumberOfNorth2miner = 0;
+  var minimumNumberOfNorth2cur = 6;
   var minimumNumberOfFlex = 1;
 
   var minimumNumberOfAttackers = 0;
@@ -223,7 +223,7 @@ module.exports.loop = function() {
   // console.log(`harvesters: ${numberOfHarvesters} upgraders: ${numberOfUpgraders} builders: ${numberOfBuilders} repairers: ${numberOfRepairers} miners: ${numberOfMiners} couriers: ${numberOfCouriers} workers: ${numberOfWorkers}`)
   console.log(`miners: ${numberOfMiners} couriers: ${numberOfCouriers} workers: ${numberOfWorkers} builders: ${numberOfBuilders} repairer: ${numberOfRepairers} west: ${numberOfWestminer}-${numberOfWestcur}-${numberOfWestroam} northwest: ${numberOfNorthwestminer}-${numberOfNorthwestcur}-${numberOfNorthwestroam} north: ${numberOfNorthroam}`)
 //north: ${numberOfNorthminer}-${numberOfNorthcur}-${numberOfNorthroam} north2: ${numberOfNorth2miner}-${numberOfNorth2cur}-${numberOfNorth2roam}
-  console.log(`harv: ${numberOfHarvesters} flex: ${numberOfFlex} north2: ${numberOfNorth2miner}-${numberOfNorth2cur}-${numberOfNorth2roam}`)
+  console.log(`harv: ${numberOfHarvesters} flex: ${numberOfFlex} north2: ${numberOfNorth2miner}-${numberOfNorth2cur}-${numberOfNorth2roam} `)
 
   if (numberOfHarvesters < minimumNumberOfHarvesters) {
     var newName = 'Harv' + Memory.lifeCount['harvester'];
@@ -244,19 +244,9 @@ module.exports.loop = function() {
       Memory.lifeCount['upgrader']++;
     }
   }
-  else if (numberOfNorth2cur < minimumNumberOfNorth2cur) {
-    var newName = 'North2cur' + Memory.lifeCount['harvester'];
-    if (Game.spawns.Spawn2.createCreep([WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], newName, {
-        role: 'north2cur',
-        working: false,
-        HAVE_LOAD: false
-      }) == OK); {
-      Memory.lifeCount['harvester']++;
-    }
-  }
   else if (numberOfNorth2miner < minimumNumberOfNorth2miner) {
     var newName = 'NorthTwominer' + Memory.lifeCount['harvester'];
-    if (Game.spawns.Spawn2.createCreep([WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, MOVE, MOVE, MOVE, MOVE], newName, {
+    if (Game.spawns.Spawn2.createCreep([WORK, WORK, WORK, WORK, CARRY, MOVE, MOVE, MOVE, MOVE], newName, {
         role: 'north2miner',
         working: false,
         HAVE_LOAD: false
@@ -264,6 +254,18 @@ module.exports.loop = function() {
       Memory.lifeCount['harvester']++;
     }
   }
+  else if (numberOfNorth2cur < minimumNumberOfNorth2cur) {
+    var newName = 'North2cur' + Memory.lifeCount['harvester'];
+    if (Game.spawns.Spawn2.createCreep([CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK,
+       MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], newName, {
+        role: 'north2cur',
+        working: false,
+        HAVE_LOAD: false
+      }) == OK); {
+      Memory.lifeCount['harvester']++;
+    }
+  }
+
 
   else if (numberOfFlex < minimumNumberOfFlex) {
     var newName = 'Flex' + Memory.lifeCount['builder'];
@@ -349,7 +351,7 @@ module.exports.loop = function() {
 
   else if (numberOfWestminer < minimumNumberOfWestminer) {
     var newName = 'Westminer' + Memory.lifeCount['harvester'];
-    if (Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, WORK, MOVE, MOVE, MOVE, MOVE, MOVE], newName, {
+    if (Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, WORK, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE], newName, {
         role: 'westminer',
         working: false,
         HAVE_LOAD: false
@@ -359,8 +361,8 @@ module.exports.loop = function() {
   }
   else if (numberOfWestcur < minimumNumberOfWestcur) {
     var newName = 'Westcur' + Memory.lifeCount['harvester'];
-    if (Game.spawns.Spawn1.createCreep([CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY,
-      MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE], newName, {
+    if (Game.spawns.Spawn1.createCreep([CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, WORK,
+    MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], newName, {
         role: 'westcur',
         working: false,
         HAVE_LOAD: false
@@ -402,7 +404,7 @@ module.exports.loop = function() {
 
   else if (numberOfNorthwestminer < minimumNumberOfNorthwestminer) {
     var newName = 'Northwestminer' + Memory.lifeCount['harvester'];
-    if (Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, MOVE, MOVE], newName, {
+    if (Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, CARRY, MOVE, MOVE], newName, {
         role: 'northwestminer',
         working: false,
         HAVE_LOAD: false
@@ -412,7 +414,7 @@ module.exports.loop = function() {
   }
   else if (numberOfNorthwestcur < minimumNumberOfNorthwestcur) {
     var newName = 'Northwestcur' + Memory.lifeCount['harvester'];
-    if (Game.spawns.Spawn1.createCreep([CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], newName, {
+    if (Game.spawns.Spawn1.createCreep([CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], newName, {
         role: 'northwestcur',
         working: false,
         HAVE_LOAD: false
@@ -422,7 +424,7 @@ module.exports.loop = function() {
   }
   else if (numberOfNorthwestroam < minimumNumberOfNorthwestroam) {
     var newName = 'Northwestroam' + Memory.lifeCount['harvester'];
-    if (Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE], newName, {
+    if (Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE], newName, {
         role: 'northwestroam',
         working: false,
         HAVE_LOAD: false
