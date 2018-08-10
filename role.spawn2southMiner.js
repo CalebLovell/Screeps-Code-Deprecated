@@ -1,8 +1,18 @@
 module.exports = {
   run: function(creep) {
+    var HAVE_LOAD = creep.memory.HAVE_LOAD;
+    // state switching
+    if (creep.memory.HAVE_LOAD == false && creep.carry.energy == creep.carryCapacity) {
+      creep.memory.HAVE_LOAD = true;
+      creep.say('\u{1F6E0}'); // hammer and wrench emojii unicode
+    }
+    if (creep.memory.HAVE_LOAD == true && creep.carry.energy == 0) {
+      creep.memory.HAVE_LOAD = false;
+      creep.say('\u{26CF}'); // pick emojii unicode
+    }
     if (creep.room.name != 'E55S48') {
-      var spawn2southMine = new RoomPosition(29, 19, 'E55S48');
-      creep.moveTo(spawn2southMine);
+      var westRoom = new RoomPosition(25, 25, 'E55S48');
+      creep.moveTo(westRoom);
     } else {
       var brokenContainer = creep.pos.findInRange(FIND_STRUCTURES, 0, {
         filter: (s) => (s.structureType == STRUCTURE_CONTAINER) &&
@@ -13,9 +23,9 @@ module.exports = {
       var containerBySource;
       for (var s in sources) {
         var nearByMiners = sources[s].pos.findInRange(FIND_MY_CREEPS, 1, {
-          filter: (c) => c.memory.role == 'westminer' && c != creep
+          filter: (c) => c.memory.role == 'spawn2southMiner' && c != creep
         });
-        //console.log("soureces: " + sources[s]);
+        // console.log("sources: " + sources[s]);
         containerBySource = sources[s].pos.findInRange(FIND_STRUCTURES, 1, {
           filter: {
             structureType: STRUCTURE_CONTAINER

@@ -25,7 +25,7 @@ module.exports = {
         var nearByMiners = sources[s].pos.findInRange(FIND_MY_CREEPS, 1, {
           filter: (c) => c.memory.role == 'westminer' && c != creep
         });
-        //console.log("soureces: " + sources[s]);
+        console.log("soureces: " + sources[s]);
         containerBySource = sources[s].pos.findInRange(FIND_STRUCTURES, 1, {
           filter: {
             structureType: STRUCTURE_CONTAINER

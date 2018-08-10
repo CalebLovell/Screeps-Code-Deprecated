@@ -38,7 +38,7 @@ require('attackSomeOne')();
 
 module.exports.loop = function() {
 
-  spawnAttackers('E53S49',0,1);
+  spawnAttackers('E55S48',1,1);
 
   /* ------- TOWER MAIN ------- */
 
@@ -158,7 +158,7 @@ module.exports.loop = function() {
   var minimumNumberOfRepairers = 0;
 
   var minimumNumberOfWestminer = 2;
-  var minimumNumberOfWestcur = 3;
+  var minimumNumberOfWestcur = 4;
   var minimumNumberOfWestroam = 2;
   var minimumNumberOfClaimers = 1;
 
@@ -178,7 +178,7 @@ module.exports.loop = function() {
   var minimumNumberOfHealers = 0;
 
   var minimumNumberOfNorth2roam = 0;
-  var minimumNumberOfSpawn2southMiner = 0;
+  var minimumNumberOfSpawn2southMiner = 2;
   var minimumNumberOfNorthcur = 0;
 
 
