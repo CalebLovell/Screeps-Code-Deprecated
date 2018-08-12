@@ -62,7 +62,7 @@ module.exports = {
       }
     }
     if (HAVE_LOAD && creep.room.name != 'E55S47') {
-      var homeBase = new RoomPosition(37, 20, 'E55S47');
+      var homeBase = new RoomPosition(16, 18, 'E55S47');
       creep.moveTo(homeBase);
       if (constructionSite.length > 0) {
         creep.build(constructionSite[0])
@@ -81,6 +81,7 @@ module.exports = {
         if (brokenRoad.length > 0) {
           creep.repair(brokenRoad[0])
         }
+        console.log(structuresFill)
         creep.moveTo(structuresFill, {
           visualizePathStyle: {
             stroke: '#ffaa00'

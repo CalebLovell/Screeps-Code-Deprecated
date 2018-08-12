@@ -150,12 +150,15 @@ module.exports.loop = function() {
     }
 
   }
-  var minimumNumberOfUpgraders = 8;
+
+  var minimumNumberOfNorthroam = 2;
+
+  var minimumNumberOfUpgraders = 5;
 
   var minimumNumberOfHarvesters = 2;
   var minimumNumberOfFlex = 1;
   var minimumNumberOfSpawn2southMiner = 2;
-  var minimumNumberOfNorthcur = 2;
+  var minimumNumberOfNorthcur = 4;
   var minimumNumberOfMidFarmer = 5;
 
 
@@ -172,11 +175,11 @@ module.exports.loop = function() {
 
   var minimumNumberOfNorthwestminer = 2;
   var minimumNumberOfNorthwestcur = 2;
-  var minimumNumberOfNorthwestroam = 2;
+  var minimumNumberOfNorthwestroam = 0;
 
 
   var minimumNumberOfWestroam = 0;
-  var minimumNumberOfNorthroam = 0
+
   var minimumNumberOfNorth2miner = 0;
   var minimumNumberOfAttackers = 0;
   var minimumNumberOfHealers = 0;
@@ -227,10 +230,21 @@ module.exports.loop = function() {
 //north: ${numberOfspawn2southMiner}-${numberOfNorthcur}-${numberOfNorthroam} north2: ${numberOfNorth2miner}-${numberOfMidFarmer}-${numberOfNorth2roam}
   console.log(`harv: ${numberOfHarvesters} flex: ${numberOfFlex} spawn2southMiner: ${numberOfSpawn2southMiner} Northcur: ${numberOfNorthcur} MidFarmer: ${numberOfMidFarmer} `)
 
+  // spawn 4
+  if (numberOfNorthroam < minimumNumberOfNorthroam) {
+    var newName = 'Northroam' + Memory.lifeCount['harvester'];
+    if (Game.spawns.Spawn4.createCreep([WORK, WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], newName, {
+        role: 'northroam',
+        working: false,
+        HAVE_LOAD: false
+      }) == OK); {
+      Memory.lifeCount['harvester']++;
+    }
+  }
   // spawn 3
   if (numberOfUpgraders < minimumNumberOfUpgraders) {
     var newName = 'Upgrada' + Memory.lifeCount['upgrader'];
-    if (Game.spawns.Spawn3.createCreep([WORK, CARRY, MOVE, MOVE], newName, {
+    if (Game.spawns.Spawn3.createCreep([WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], newName, {
         role: 'upgrader',
         HAVE_LOAD: false
       }) == OK); {
@@ -406,16 +420,6 @@ module.exports.loop = function() {
     }
   }
 
-  else if (numberOfNorthroam < minimumNumberOfNorthroam) {
-    var newName = 'Northroam' + Memory.lifeCount['harvester'];
-    if (Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY,CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], newName, {
-        role: 'northroam',
-        working: false,
-        HAVE_LOAD: false
-      }) == OK); {
-      Memory.lifeCount['harvester']++;
-    }
-  }
 
   else if (numberOfNorthwestminer < minimumNumberOfNorthwestminer) {
     var newName = 'Northwestminer' + Memory.lifeCount['harvester'];

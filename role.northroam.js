@@ -2,8 +2,8 @@ var roleRepairer = require('role.repairer');
 
 module.exports = {
   run: function(creep) {
-    if (creep.room.name != 'E54S48') {
-      var northRoom = new RoomPosition(29, 19, 'E54S48');
+    if (creep.room.name != 'E55S49') {
+      var northRoom = new RoomPosition(29, 19, 'E55S49');
       creep.moveTo(northRoom);
     } else {
       if (creep.memory.HAVE_LOAD == false && creep.carry.energy == creep.carryCapacity) {
@@ -16,7 +16,7 @@ module.exports = {
       }
       // Variables
       var HAVE_LOAD = creep.memory.HAVE_LOAD
-      var source = creep.pos.findClosestByPath(FIND_SOURCES);
+      var source = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
       var constructionSite = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES);
       // Step 1: Creep does not HAVE_LOAD, is at dropped energy or container -> Pick it up or withdraw it
       // Creep withdraws

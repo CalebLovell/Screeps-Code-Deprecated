@@ -34,7 +34,7 @@ module.exports = {
         });
         return OK;
       }
-      // // Step 3: Creep does HAVE_LOAD, is at constructionSite -> Build it
+      // Step 3: Creep does HAVE_LOAD, is at constructionSite -> Build it
       // if (HAVE_LOAD && controller != null && creep.pos.inRangeTo(controller, 3)) {
       //   creep.upgradeController(controller)
       //   return OK;
