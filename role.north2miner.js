@@ -10,8 +10,8 @@ module.exports = {
       creep.memory.HAVE_LOAD = false;
       creep.say('\u{26CF}'); // pick emojii unicode
     }
-    if (creep.room.name != 'E55S45') {
-      var north2Room = new RoomPosition(22, 48, 'E55S45');
+    if (creep.room.name != 'E55S49') {
+      var north2Room = new RoomPosition(22, 48, 'E55S49');
       creep.moveTo(north2Room);
     } else {
       var brokenContainer = creep.pos.findInRange(FIND_STRUCTURES, 0, {
@@ -25,7 +25,7 @@ module.exports = {
         var nearByMiners = sources[s].pos.findInRange(FIND_MY_CREEPS, 1, {
           filter: (c) => c.memory.role == 'north2miner' && c != creep
         });
-        //console.log("soureces: " + sources[s]);
+        // console.log("soureces: " + sources[s]);
         containerBySource = sources[s].pos.findInRange(FIND_STRUCTURES, 1, {
           filter: {
             structureType: STRUCTURE_CONTAINER
@@ -57,9 +57,9 @@ module.exports = {
         if (brokenContainer.length > 0 && HAVE_LOAD) {
           creep.repair(brokenContainer[0])
         } else {
-        //console.log("on container");
-        var sourceToHarvest = creep.pos.findInRange(FIND_SOURCES, 1);
-        creep.harvest(sourceToHarvest[0]);
+          //console.log("on container");
+          var sourceToHarvest = creep.pos.findInRange(FIND_SOURCES, 1);
+          creep.harvest(sourceToHarvest[0]);
         }
       } else {
         //console.log("not on container")
