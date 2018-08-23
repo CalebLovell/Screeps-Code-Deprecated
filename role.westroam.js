@@ -2,8 +2,8 @@ var roleRepairer = require('role.repairer');
 
 module.exports = {
   run: function(creep) {
-    if (creep.room.name != 'E54S47') {
-      var westRoom = new RoomPosition(25, 25, 'E54S47');
+    if (creep.room.name != 'E53S49') {
+      var westRoom = new RoomPosition(25, 25, 'E53S49');
       creep.moveTo(westRoom);
     } else {
       if (creep.memory.HAVE_LOAD == false && creep.carry.energy == creep.carryCapacity) {

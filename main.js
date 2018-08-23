@@ -183,7 +183,7 @@ module.exports.loop = function() {
 
 
 
-  var minimumNumberOfUpgraders = 5;
+  var minimumNumberOfUpgraders = 7;
 
   var minimumNumberOfHarvesters = 2;
   var minimumNumberOfFlex = 1;
@@ -194,12 +194,12 @@ module.exports.loop = function() {
 
   var minimumNumberOfMiners = 2;
   var minimumNumberOfCouriers = 2;
-  var minimumNumberOfWorkers = 5;
+  var minimumNumberOfWorkers = 1;
   var minimumNumberOfBuilders = 1;
   var minimumNumberOfRepairers = 0;
 
   var minimumNumberOfWestminer = 2;
-  var minimumNumberOfWestcur = 4;
+  var minimumNumberOfWestcur = 3;
   var minimumNumberOfClaimers = 1;  // west claimer
 
 
@@ -235,7 +235,7 @@ module.exports.loop = function() {
   var numberOfAttackers = _.sum(Game.creeps, (c) => c.memory.role == 'attacker');
   var numberOfHealers = _.sum(Game.creeps, (c) => c.memory.role == 'healer');
   var numberOfClaimers = _.sum(Game.creeps, (c) => c.memory.role == 'claimer');
-  var numberOfClaimers2 = _.sum(Game.creeps, (c) => c.memory.role == 'claimer');
+  var numberOfClaimers2 = _.sum(Game.creeps, (c) => c.memory.role == 'claimer2');
   var numberOfFlex = _.sum(Game.creeps, (c) => c.memory.role == 'flex');
 
   var numberOfSpawn2southMiner = _.sum(Game.creeps, (c) => c.memory.role == 'spawn2southMiner');
@@ -298,8 +298,8 @@ module.exports.loop = function() {
   }
   else if (numberOfWorkers < minimumNumberOfWorkers) {
     var newName = 'Worka' + Memory.lifeCount['harvester'];
-    if (Game.spawns.Spawn4.createCreep([WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY,
-      MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], newName, {
+    if (Game.spawns.Spawn4.createCreep([WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY,
+      MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], newName, {
         role: 'worker',
         working: false,
         HAVE_LOAD: false
@@ -309,7 +309,7 @@ module.exports.loop = function() {
   }
 
   // spawn 3
-  if (numberOfUpgraders < minimumNumberOfUpgraders) {
+  if (numberOfUpgraders < 1) {
     var newName = 'Upgrada' + Memory.lifeCount['upgrader'];
     if (Game.spawns.Spawn3.createCreep([WORK, CARRY, CARRY, MOVE, MOVE], newName, {
         role: 'upgrader',
@@ -318,6 +318,16 @@ module.exports.loop = function() {
       Memory.lifeCount['upgrader']++;
     }
   }
+  else if (numberOfUpgraders < minimumNumberOfUpgraders) {
+    var newName = 'Upgrada' + Memory.lifeCount['upgrader'];
+    if (Game.spawns.Spawn3.createCreep([WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], newName, {
+        role: 'upgrader',
+        HAVE_LOAD: false
+      }) == OK); {
+      Memory.lifeCount['upgrader']++;
+    }
+  }
+
 
   // spawn 2
   if (numberOfHarvesters < minimumNumberOfHarvesters) {
@@ -397,7 +407,8 @@ module.exports.loop = function() {
   }
   else if (numberOfWorkers < minimumNumberOfWorkers) {
     var newName = 'Worka' + Memory.lifeCount['harvester'];
-    if (Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE], newName, {
+    if (Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY,
+      MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], newName, {
         role: 'worker',
         working: false,
         HAVE_LOAD: false
