@@ -27,7 +27,7 @@ var roleWestminer = require('role.westminer');
 var roleWestcur = require('role.westcur');
 var roleWestroam = require('role.westroam');
 
-require('attackSomeOne')();
+// require('attackSomeOne')();
 
 
 
@@ -38,82 +38,82 @@ require('attackSomeOne')();
 // }
 
 module.exports.loop = function() {
-
-  spawnAttackers('E53S49',0,1);
-
-  /* ------- TOWER MAIN ------- */
-
-  var hostiles1 = Game.rooms['E54S49'].find(FIND_HOSTILE_CREEPS);
-  var myHurtCreeps = Game.rooms['E54S49'].find(FIND_MY_CREEPS, {
-    filter: function(hurtedCreep) {
-      return hurtedCreep.hits < hurtedCreep.hitsMax;
-    }
-  });
-  var towers = Game.rooms['E54S49'].find(FIND_MY_STRUCTURES, {
-    filter: {
-      structureType: STRUCTURE_TOWER
-    }
-  });
-  if(hostiles1.length > 0 && hostiles1.owner != 'cluelesswalnut' || 'LightLemmonDrop') {
-    towers.forEach(tower => tower.attack(hostiles1[0]));
-  }
-  else if(myHurtCreeps.length > 0) {
-    towers.forEach(tower => tower.heal(myHurtCreeps[0]));
-  }
-
-  /* ------- TOWER 2ND ROOM ------- */
-
-  var hostiles2 = Game.rooms['E55S47'].find(FIND_HOSTILE_CREEPS);
-  var myHurtCreeps2 = Game.rooms['E55S47'].find(FIND_MY_CREEPS, {
-    filter: function(hurtedCreep) {
-      return hurtedCreep.hits < hurtedCreep.hitsMax;
-    }
-  });
-  var damagedRamparts2HP = 100000
-  var damagedRamparts2 = Game.rooms['E55S47'].find(FIND_STRUCTURES, {
-    filter: (s) => (s.structureType == STRUCTURE_RAMPART) && s.hits < damagedRamparts2HP
-  });
-  var towers2 = Game.rooms['E55S47'].find(FIND_MY_STRUCTURES, {
-    filter: {
-      structureType: STRUCTURE_TOWER
-    }
-  });
-  if(hostiles2.length > 0 && hostiles2.owner != 'cluelesswalnut' || 'LightLemmonDrop') {
-    towers2.forEach(tower => tower.attack(hostiles2[0]));
-  }
-  if(myHurtCreeps2.length > 0) {
-    towers2.forEach(tower => tower.heal(myHurtCreeps2[0]));
-  }
-  // if(damagedRamparts2.length > 0) {
-  //   towers2.forEach(tower => tower.repair(damagedRamparts2[0]));
+  //
+  // spawnAttackers('E53S49',0,1);
+  //
+  // /* ------- TOWER MAIN ------- */
+  //
+  // var hostiles1 = Game.rooms['E54S49'].find(FIND_HOSTILE_CREEPS);
+  // var myHurtCreeps = Game.rooms['E54S49'].find(FIND_MY_CREEPS, {
+  //   filter: function(hurtedCreep) {
+  //     return hurtedCreep.hits < hurtedCreep.hitsMax;
+  //   }
+  // });
+  // var towers = Game.rooms['E54S49'].find(FIND_MY_STRUCTURES, {
+  //   filter: {
+  //     structureType: STRUCTURE_TOWER
+  //   }
+  // });
+  // if(hostiles1.length > 0 && hostiles1.owner != 'cluelesswalnut' || 'LightLemmonDrop') {
+  //   towers.forEach(tower => tower.attack(hostiles1[0]));
   // }
-
-  /* ------- TOWER 3RD ROOM ------- */
-
-  var hostiles2 = Game.rooms['E51S46'].find(FIND_HOSTILE_CREEPS);
-  var myHurtCreeps2 = Game.rooms['E51S46'].find(FIND_MY_CREEPS, {
-    filter: function(hurtedCreep) {
-      return hurtedCreep.hits < hurtedCreep.hitsMax;
-    }
-  });
-  var damagedRamparts2HP = 100000
-  var damagedRamparts2 = Game.rooms['E51S46'].find(FIND_STRUCTURES, {
-    filter: (s) => (s.structureType == STRUCTURE_RAMPART) && s.hits < damagedRamparts2HP
-  });
-  var towers2 = Game.rooms['E51S46'].find(FIND_MY_STRUCTURES, {
-    filter: {
-      structureType: STRUCTURE_TOWER
-    }
-  });
-  if(hostiles2.length > 0 && hostiles2.owner != 'cluelesswalnut' || 'LightLemmonDrop') {
-    towers2.forEach(tower => tower.attack(hostiles2[0]));
-  }
-  if(myHurtCreeps2.length > 0) {
-    towers2.forEach(tower => tower.heal(myHurtCreeps2[0]));
-  }
-  // if(damagedRamparts2.length > 0) {
-  //   towers2.forEach(tower => tower.repair(damagedRamparts2[0]));
+  // else if(myHurtCreeps.length > 0) {
+  //   towers.forEach(tower => tower.heal(myHurtCreeps[0]));
   // }
+  //
+  // /* ------- TOWER 2ND ROOM ------- */
+  //
+  // var hostiles2 = Game.rooms['E55S47'].find(FIND_HOSTILE_CREEPS);
+  // var myHurtCreeps2 = Game.rooms['E55S47'].find(FIND_MY_CREEPS, {
+  //   filter: function(hurtedCreep) {
+  //     return hurtedCreep.hits < hurtedCreep.hitsMax;
+  //   }
+  // });
+  // var damagedRamparts2HP = 100000
+  // var damagedRamparts2 = Game.rooms['E55S47'].find(FIND_STRUCTURES, {
+  //   filter: (s) => (s.structureType == STRUCTURE_RAMPART) && s.hits < damagedRamparts2HP
+  // });
+  // var towers2 = Game.rooms['E55S47'].find(FIND_MY_STRUCTURES, {
+  //   filter: {
+  //     structureType: STRUCTURE_TOWER
+  //   }
+  // });
+  // if(hostiles2.length > 0 && hostiles2.owner != 'cluelesswalnut' || 'LightLemmonDrop') {
+  //   towers2.forEach(tower => tower.attack(hostiles2[0]));
+  // }
+  // if(myHurtCreeps2.length > 0) {
+  //   towers2.forEach(tower => tower.heal(myHurtCreeps2[0]));
+  // }
+  // // if(damagedRamparts2.length > 0) {
+  // //   towers2.forEach(tower => tower.repair(damagedRamparts2[0]));
+  // // }
+  //
+  // /* ------- TOWER 3RD ROOM ------- */
+  //
+  // var hostiles2 = Game.rooms['E51S46'].find(FIND_HOSTILE_CREEPS);
+  // var myHurtCreeps2 = Game.rooms['E51S46'].find(FIND_MY_CREEPS, {
+  //   filter: function(hurtedCreep) {
+  //     return hurtedCreep.hits < hurtedCreep.hitsMax;
+  //   }
+  // });
+  // var damagedRamparts2HP = 100000
+  // var damagedRamparts2 = Game.rooms['E51S46'].find(FIND_STRUCTURES, {
+  //   filter: (s) => (s.structureType == STRUCTURE_RAMPART) && s.hits < damagedRamparts2HP
+  // });
+  // var towers2 = Game.rooms['E51S46'].find(FIND_MY_STRUCTURES, {
+  //   filter: {
+  //     structureType: STRUCTURE_TOWER
+  //   }
+  // });
+  // if(hostiles2.length > 0 && hostiles2.owner != 'cluelesswalnut' || 'LightLemmonDrop') {
+  //   towers2.forEach(tower => tower.attack(hostiles2[0]));
+  // }
+  // if(myHurtCreeps2.length > 0) {
+  //   towers2.forEach(tower => tower.heal(myHurtCreeps2[0]));
+  // }
+  // // if(damagedRamparts2.length > 0) {
+  // //   towers2.forEach(tower => tower.repair(damagedRamparts2[0]));
+  // // }
 
   /* ------- OLD CREEP MEMORY DELETE ------- */
 
@@ -193,7 +193,7 @@ module.exports.loop = function() {
 
 
   var minimumNumberOfMiners = 2;
-  var minimumNumberOfCouriers = 2;
+  var minimumNumberOfCouriers = 1;
   var minimumNumberOfWorkers = 1;
   var minimumNumberOfBuilders = 1;
   var minimumNumberOfRepairers = 0;
@@ -265,144 +265,143 @@ module.exports.loop = function() {
 //north: ${numberOfspawn2southMiner}-${numberOfNorthcur}-${numberOfNorthroam} north2: ${numberOfNorth2miner}-${numberOfMidFarmer}-${numberOfNorth2roam}
   console.log(`harv: ${numberOfHarvesters} flex: ${numberOfFlex} spawn2southMiner: ${numberOfSpawn2southMiner} Northcur: ${numberOfNorthcur} MidFarmer: ${numberOfMidFarmer} `)
 
-  // spawn 4
-  if (numberOfNorth2miner < minimumNumberOfNorth2miner) {
-    var newName = 'NorthTwominer' + Memory.lifeCount['harvester'];
-    if (Game.spawns.Spawn4.createCreep([WORK, WORK, WORK, WORK, WORK, CARRY, MOVE, MOVE, MOVE], newName, {
-        role: 'north2miner',
-        working: false,
-        HAVE_LOAD: false
-      }) == OK); {
-      Memory.lifeCount['harvester']++;
-    }
-  }
-  else if (numberOfNorthroam < minimumNumberOfNorthroam) {
-    var newName = 'Northroam' + Memory.lifeCount['harvester'];
-    if (Game.spawns.Spawn4.createCreep([CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, WORK,
-    MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], newName, {
-        role: 'northroam',
-        working: false,
-        HAVE_LOAD: false
-      }) == OK); {
-      Memory.lifeCount['harvester']++;
-    }
-  }
-  else if (numberOfClaimers2 < minimumNumberOfClaimers2) {
-    var newName = 'Claima2' + Memory.lifeCount['harvester'];
-    if (Game.spawns.Spawn4.createCreep([CLAIM, CLAIM, MOVE, MOVE], newName, {
-        role: 'claimer2',
-        HAVE_LOAD: false
-      }) == OK); {
-      Memory.lifeCount['harvester']++;
-    }
-  }
-  else if (numberOfWorkers < minimumNumberOfWorkers) {
-    var newName = 'Worka' + Memory.lifeCount['harvester'];
-    if (Game.spawns.Spawn4.createCreep([WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY,
-      MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], newName, {
-        role: 'worker',
-        working: false,
-        HAVE_LOAD: false
-      }) == OK); {
-      Memory.lifeCount['harvester']++;
-    }
-  }
-
-  // spawn 3
-  if (numberOfUpgraders < 1) {
-    var newName = 'Upgrada' + Memory.lifeCount['upgrader'];
-    if (Game.spawns.Spawn3.createCreep([WORK, CARRY, CARRY, MOVE, MOVE], newName, {
-        role: 'upgrader',
-        HAVE_LOAD: false
-      }) == OK); {
-      Memory.lifeCount['upgrader']++;
-    }
-  }
-  else if (numberOfUpgraders < minimumNumberOfUpgraders) {
-    var newName = 'Upgrada' + Memory.lifeCount['upgrader'];
-    if (Game.spawns.Spawn3.createCreep([WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], newName, {
-        role: 'upgrader',
-        HAVE_LOAD: false
-      }) == OK); {
-      Memory.lifeCount['upgrader']++;
-    }
-  }
-
-
-  // spawn 2
-  if (numberOfHarvesters < minimumNumberOfHarvesters) {
-    var newName = 'Harv' + Memory.lifeCount['harvester'];
-    if (Game.spawns.Spawn2.createCreep([WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE], newName, {
-        role: 'harvester',
-        working: false,
-        HAVE_LOAD: false
-      }) == OK); {
-      Memory.lifeCount['harvester']++;
-    }
-  }
-  else if (numberOfFlex < minimumNumberOfFlex) {
-    var newName = 'Flex' + Memory.lifeCount['builder'];
-    if (Game.spawns.Spawn2.createCreep([WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE], newName, {
-        role: 'flex',
-        working: false,
-        HAVE_LOAD: false
-      }) == OK); {
-      Memory.lifeCount['builder']++;
-    }
-  }
-  else if (numberOfSpawn2southMiner < minimumNumberOfSpawn2southMiner) {
-    var newName = 'spawn2southMiner' + Memory.lifeCount['harvester'];
-    if (Game.spawns.Spawn2.createCreep([WORK, WORK, WORK, CARRY, MOVE, MOVE, MOVE], newName, {
-        role: 'spawn2southMiner',
-        working: false,
-        HAVE_LOAD: false
-      }) == OK); {
-      Memory.lifeCount['harvester']++;
-    }
-  }
-  else if (numberOfNorthcur < minimumNumberOfNorthcur) {
-    var newName = 'Northcur' + Memory.lifeCount['harvester'];
-    if (Game.spawns.Spawn2.createCreep([CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], newName, {
-        role: 'northcur',
-        working: false,
-        HAVE_LOAD: false
-      }) == OK); {
-      Memory.lifeCount['harvester']++;
-    }
-  }
-  else if (numberOfMidFarmer < minimumNumberOfMidFarmer) {
-    var newName = 'MidFarmer' + Memory.lifeCount['harvester'];
-    if (Game.spawns.Spawn2.createCreep([CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK,
-       MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], newName, {
-        role: 'midFarmer',
-        working: false,
-        HAVE_LOAD: false
-      }) == OK); {
-      Memory.lifeCount['harvester']++;
-    }
-  }
+  // // spawn 4
+  // if (numberOfNorth2miner < minimumNumberOfNorth2miner) {
+  //   // var newName = 'NorthTwominer' + Memory.lifeCount['harvester'];
+  //   if (Game.spawns.Spawn4.createCreep([WORK, WORK, WORK, WORK, WORK, CARRY, MOVE, MOVE, MOVE], newName, {
+  //       role: 'north2miner',
+  //       working: false,
+  //       HAVE_LOAD: false
+  //     }) == OK); {
+  //     Memory.lifeCount['harvester']++;
+  //   }
+  // }
+  // else if (numberOfNorthroam < minimumNumberOfNorthroam) {
+  //   var newName = 'Northroam' + Memory.lifeCount['harvester'];
+  //   if (Game.spawns.Spawn4.createCreep([CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, WORK,
+  //   MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], newName, {
+  //       role: 'northroam',
+  //       working: false,
+  //       HAVE_LOAD: false
+  //     }) == OK); {
+  //     Memory.lifeCount['harvester']++;
+  //   }
+  // }
+  // else if (numberOfClaimers2 < minimumNumberOfClaimers2) {
+  //   var newName = 'Claima2' + Memory.lifeCount['harvester'];
+  //   if (Game.spawns.Spawn4.createCreep([CLAIM, CLAIM, MOVE, MOVE], newName, {
+  //       role: 'claimer2',
+  //       HAVE_LOAD: false
+  //     }) == OK); {
+  //     Memory.lifeCount['harvester']++;
+  //   }
+  // }
+  // else if (numberOfWorkers < minimumNumberOfWorkers) {
+  //   var newName = 'Worka' + Memory.lifeCount['harvester'];
+  //   if (Game.spawns.Spawn4.createCreep([WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY,
+  //     MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], newName, {
+  //       role: 'worker',
+  //       working: false,
+  //       HAVE_LOAD: false
+  //     }) == OK); {
+  //     Memory.lifeCount['harvester']++;
+  //   }
+  // }
+  //
+  // // spawn 3
+  // if (numberOfUpgraders < 1) {
+  //   var newName = 'Upgrada' + Memory.lifeCount['upgrader'];
+  //   if (Game.spawns.Spawn3.createCreep([WORK, CARRY, CARRY, MOVE, MOVE], newName, {
+  //       role: 'upgrader',
+  //       HAVE_LOAD: false
+  //     }) == OK); {
+  //     Memory.lifeCount['upgrader']++;
+  //   }
+  // }
+  // else if (numberOfUpgraders < minimumNumberOfUpgraders) {
+  //   var newName = 'Upgrada' + Memory.lifeCount['upgrader'];
+  //   if (Game.spawns.Spawn3.createCreep([WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], newName, {
+  //       role: 'upgrader',
+  //       HAVE_LOAD: false
+  //     }) == OK); {
+  //     Memory.lifeCount['upgrader']++;
+  //   }
+  // }
+  //
+  //
+  // // spawn 2
+  // if (numberOfHarvesters < minimumNumberOfHarvesters) {
+  //   var newName = 'Harv' + Memory.lifeCount['harvester'];
+  //   if (Game.spawns.Spawn2.createCreep([WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE], newName, {
+  //       role: 'harvester',
+  //       working: false,
+  //       HAVE_LOAD: false
+  //     }) == OK); {
+  //     Memory.lifeCount['harvester']++;
+  //   }
+  // }
+  // else if (numberOfFlex < minimumNumberOfFlex) {
+  //   var newName = 'Flex' + Memory.lifeCount['builder'];
+  //   if (Game.spawns.Spawn2.createCreep([WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE], newName, {
+  //       role: 'flex',
+  //       working: false,
+  //       HAVE_LOAD: false
+  //     }) == OK); {
+  //     Memory.lifeCount['builder']++;
+  //   }
+  // }
+  // else if (numberOfSpawn2southMiner < minimumNumberOfSpawn2southMiner) {
+  //   var newName = 'spawn2southMiner' + Memory.lifeCount['harvester'];
+  //   if (Game.spawns.Spawn2.createCreep([WORK, WORK, WORK, CARRY, MOVE, MOVE, MOVE], newName, {
+  //       role: 'spawn2southMiner',
+  //       working: false,
+  //       HAVE_LOAD: false
+  //     }) == OK); {
+  //     Memory.lifeCount['harvester']++;
+  //   }
+  // }
+  // else if (numberOfNorthcur < minimumNumberOfNorthcur) {
+  //   var newName = 'Northcur' + Memory.lifeCount['harvester'];
+  //   if (Game.spawns.Spawn2.createCreep([CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], newName, {
+  //       role: 'northcur',
+  //       working: false,
+  //       HAVE_LOAD: false
+  //     }) == OK); {
+  //     Memory.lifeCount['harvester']++;
+  //   }
+  // }
+  // else if (numberOfMidFarmer < minimumNumberOfMidFarmer) {
+  //   var newName = 'MidFarmer' + Memory.lifeCount['harvester'];
+  //   if (Game.spawns.Spawn2.createCreep([CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK,
+  //      MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], newName, {
+  //       role: 'midFarmer',
+  //       working: false,
+  //       HAVE_LOAD: false
+  //     }) == OK); {
+  //     Memory.lifeCount['harvester']++;
+  //   }
+  // }
 
 
  // spawn 1
   if (numberOfCouriers < minimumNumberOfCouriers) {
-    var newName = 'Cur' + Memory.lifeCount['harvester'];
-    if (Game.spawns.Spawn1.createCreep([CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY,
-      MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], newName, {
+    // var newName = 'Cur' + Memory.lifeCount['harvester'];
+    if (Game.spawns.Spawn1.createCreep([CARRY, CARRY, MOVE], newName, {
         role: 'courier',
         working: false,
         HAVE_LOAD: false
       }) == OK); {
-      Memory.lifeCount['harvester']++;
+      // Memory.lifeCount['harvester']++;
     }
   }
   else if (numberOfMiners < minimumNumberOfMiners) {
-    var newName = 'Mina' + Memory.lifeCount['harvester'];
+    // var newName = 'Mina' + Memory.lifeCount['harvester'];
     if (Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, WORK, MOVE, MOVE, MOVE], newName, {
         role: 'miner',
         working: false,
         HAVE_LOAD: false
       }) == OK); {
-      Memory.lifeCount['harvester']++;
+      // Memory.lifeCount['harvester']++;
     }
   }
   else if (numberOfWorkers < minimumNumberOfWorkers) {
